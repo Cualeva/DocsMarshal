@@ -59,11 +59,11 @@
   <ItemGroup>
     <ProjectReference Include="..\DOCSMarshal.Interfaces\DOCSMarshal.Interfaces.csproj">
       <Project>{E703B6F8-A538-40A4-8242-92C150537664}</Project>
-      <Name>DOCSMarshal.Interfaces</Name>
+      <Name>DocsMarshal.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOCSMarshal.Entities\DOCSMarshal.Entities.csproj">
       <Project>{5D5E0ED5-C2EF-470F-8F4D-DBFB747BB543}</Project>
-      <Name>DOCSMarshal.Entities</Name>
+      <Name>DocsMarshal.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

@@ -18,13 +18,14 @@ namespace DocsMarshal.Orchestrator
         {
             if (string.IsNullOrWhiteSpace(docsmarshalUrl)) throw new ArgumentNullException("DocsMarshalUrl cannot be empty");
             DocsMarshalUrl = docsmarshalUrl;
+            Profile = new Managers.ProfileManager(this);
         }
 
-        public IProfileManager Profile => throw new NotImplementedException();
+        public IProfileManager Profile { get; private set; }
 
         public void Dispose()
         {
-           
+            if (Profile != null) { Profile.Dispose(); Profile = null; };
         }
 
         public bool Logon(string username, string password, string softwareName)
