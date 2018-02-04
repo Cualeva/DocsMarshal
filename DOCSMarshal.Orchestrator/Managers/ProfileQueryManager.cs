@@ -28,17 +28,26 @@ namespace DocsMarshal.Orchestrator.Managers
             var serializedItem = JsonConvert.SerializeObject(query);
             using (var client = new HttpClient())
             {
-                var url = query.SearchUrl(Orchestrator.DocsMarshalUrl);
-                if (string.IsNullOrWhiteSpace(query.sessionID)) query.sessionID = Orchestrator.SessionId;
-                var response = await client.PostAsync(query.SearchUrl(Orchestrator.DocsMarshalUrl), new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                var ricerca = new DocsMarshal.Entities.ProfileSearch();
-                string rit = response.Content.ReadAsStringAsync().Result;
-                var ritO = JsonConvert.DeserializeObject<Root>(rit);
-                if (ritO != null && ritO.Result != null)
+                try
                 {
-                    if (ritO.Result.Profiles == null) ritO.Result.Profiles = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>>();
+                    var url = query.SearchUrl(Orchestrator.DocsMarshalUrl);
+                    if (string.IsNullOrWhiteSpace(query.sessionID)) query.sessionID = Orchestrator.SessionId;
+                    var response = await client.PostAsync(query.SearchUrl(Orchestrator.DocsMarshalUrl), new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                    var ricerca = new DocsMarshal.Entities.ProfileSearch();
+                    string rit = response.Content.ReadAsStringAsync().Result;
+                    var ritO = JsonConvert.DeserializeObject<Root>(rit);
+                    if (ritO != null && ritO.Result != null)
+                    {
+                        if (ritO.Result.Profiles == null) ritO.Result.Profiles = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>>();
+                    }
+                    return ritO.Result;
                 }
-                return ritO.Result;
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+
             }
 
         }

@@ -34,6 +34,8 @@
     <Compile Include="Managers\Profile\IProfileQueryManager.cs" />
     <Compile Include="Managers\Profile\IProfileDocument.cs" />
     <Compile Include="Managers\Profile\IProfileArchiveManager.cs" />
+    <Compile Include="Managers\Portal\IPortalManager.cs" />
+    <Compile Include="Managers\Portal\IUrlsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -52,6 +54,7 @@
   <ItemGroup>
     <Folder Include="Managers\" />
     <Folder Include="Managers\Profile\" />
+    <Folder Include="Managers\Portal\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DOCSMarshal.Entities\DOCSMarshal.Entities.csproj">

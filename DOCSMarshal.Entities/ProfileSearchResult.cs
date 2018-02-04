@@ -74,6 +74,37 @@ namespace DocsMarshal.Entities
                 return null;
         }
 
+        public double? GetDoubleValueFromProfileByExternalId(int index, string externalid)
+        {
+            if (Profiles == null || index >= Profiles.Count) throw new IndexOutOfRangeException("Index");
+            var profilo = Profiles[index];
+            var campo = Fields.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.ExternalId) && string.Equals(x.ExternalId, externalid, StringComparison.OrdinalIgnoreCase));
+            string fieldName = string.Empty;
+            if (campo == null)
+            {
+                // verifico se esiste una proprietà con lo stesso nome
+                if (profilo.ContainsKey(externalid))
+                    fieldName = externalid;
+                else
+                    throw new KeyNotFoundException();
+            }
+            else
+            {
+                fieldName = campo.DbFieldName;
+                if (campo.FieldType != Enums.EFieldType.Decimal) throw new InvalidCastException(string.Format("Field {0} is not a decimal field. ({1})", campo.Name, campo.FieldType.ToString()));
+            }
+            if (profilo.ContainsKey(fieldName))
+            {
+                double valore = 0;
+                if (profilo[fieldName] != null && double.TryParse(profilo[fieldName].ToString(), out valore))
+                    return valore;
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+
         public DateTime? GetDateTimeValueFromProfileByExternalId(int index, string externalid)
         {
             if (Profiles == null || index >= Profiles.Count) throw new IndexOutOfRangeException("Index");

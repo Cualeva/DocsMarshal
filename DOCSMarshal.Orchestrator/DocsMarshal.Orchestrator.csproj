@@ -35,6 +35,8 @@
     <Compile Include="Managers\ProfileQueryManager.cs" />
     <Compile Include="Managers\ProfileDocumentsManager.cs" />
     <Compile Include="Managers\ProfileArchiveManager.cs" />
+    <Compile Include="Managers\PortalManager.cs" />
+    <Compile Include="Managers\UrlsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
