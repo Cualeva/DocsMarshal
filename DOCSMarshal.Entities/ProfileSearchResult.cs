@@ -48,12 +48,55 @@ namespace DocsMarshal.Entities
             if (Profiles == null || index >= Profiles.Count) throw new IndexOutOfRangeException("Index");
             var profilo = Profiles[index];
             var campo = Fields.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.ExternalId) && string.Equals(x.ExternalId, externalid, StringComparison.OrdinalIgnoreCase));
-            if (campo == null) throw new KeyNotFoundException();
-            if (campo.FieldType != Enums.EFieldType.Int) throw new InvalidCastException(string.Format("Field {0} is not a int field. ({1})", campo.Name, campo.FieldType.ToString()));
-            if (profilo.ContainsKey(campo.DbFieldName))
+            string fieldName = string.Empty;
+            if (campo == null)
+            {
+                // verifico se esiste una proprietà con lo stesso nome
+                if (profilo.ContainsKey(externalid))
+                    fieldName = externalid;
+                else
+                    throw new KeyNotFoundException();
+            }
+            else
+            {
+                fieldName = campo.DbFieldName;
+                if (campo.FieldType != Enums.EFieldType.Int) throw new InvalidCastException(string.Format("Field {0} is not a int field. ({1})", campo.Name, campo.FieldType.ToString()));
+            }
+            if (profilo.ContainsKey(fieldName))
             {
                 int valore = 0;
-                if (profilo[campo.DbFieldName] != null && int.TryParse(profilo[campo.DbFieldName].ToString(), out valore))
+                if (profilo[fieldName] != null && int.TryParse(profilo[fieldName].ToString(), out valore))
+                    return valore;
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+
+        public double? GetDoubleValueFromProfileByExternalId(int index, string externalid)
+        {
+            if (Profiles == null || index >= Profiles.Count) throw new IndexOutOfRangeException("Index");
+            var profilo = Profiles[index];
+            var campo = Fields.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.ExternalId) && string.Equals(x.ExternalId, externalid, StringComparison.OrdinalIgnoreCase));
+            string fieldName = string.Empty;
+            if (campo == null)
+            {
+                // verifico se esiste una proprietà con lo stesso nome
+                if (profilo.ContainsKey(externalid))
+                    fieldName = externalid;
+                else
+                    throw new KeyNotFoundException();
+            }
+            else
+            {
+                fieldName = campo.DbFieldName;
+                if (campo.FieldType != Enums.EFieldType.Decimal) throw new InvalidCastException(string.Format("Field {0} is not a decimal field. ({1})", campo.Name, campo.FieldType.ToString()));
+            }
+            if (profilo.ContainsKey(fieldName))
+            {
+                double valore = 0;
+                if (profilo[fieldName] != null && double.TryParse(profilo[fieldName].ToString(), out valore))
                     return valore;
                 else
                     return null;
@@ -67,12 +110,25 @@ namespace DocsMarshal.Entities
             if (Profiles == null || index >= Profiles.Count) throw new IndexOutOfRangeException("Index");
             var profilo = Profiles[index];
             var campo = Fields.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.ExternalId) && string.Equals(x.ExternalId, externalid, StringComparison.OrdinalIgnoreCase));
-            if (campo == null) throw new KeyNotFoundException();
-            if (campo.FieldType != Enums.EFieldType.DateTime && campo.FieldType !=  Enums.EFieldType.Date) throw new InvalidCastException(string.Format("Field {0} is not a dateTime or date field. ({1})", campo.Name, campo.FieldType.ToString()));
-            if (profilo.ContainsKey(campo.DbFieldName))
+            string fieldName = string.Empty;
+            if (campo == null)
+            {
+                // verifico se esiste una proprietà con lo stesso nome
+                if (profilo.ContainsKey(externalid))
+                    fieldName = externalid;
+                else
+                    throw new KeyNotFoundException();
+            }
+            else
+            {
+                fieldName = campo.DbFieldName;
+                if (campo.FieldType != Enums.EFieldType.DateTime && campo.FieldType != Enums.EFieldType.Date) throw new InvalidCastException(string.Format("Field {0} is not a dateTime or date field. ({1})", campo.Name, campo.FieldType.ToString()));
+            }
+
+            if (profilo.ContainsKey(fieldName))
             {
                 DateTime valore = DateTime.MinValue;
-                if (profilo[campo.DbFieldName] != null && DateTime.TryParse(profilo[campo.DbFieldName].ToString(), out valore))
+                if (profilo[fieldName] != null && DateTime.TryParse(profilo[fieldName].ToString(), out valore))
                     return valore;
                 else
                     return null;
@@ -103,11 +159,23 @@ namespace DocsMarshal.Entities
         public string GetStringValueFromProfileByExternalId(int index, string externalid)
         {
             var campo = Fields.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x.ExternalId) && string.Equals(x.ExternalId, externalid, StringComparison.OrdinalIgnoreCase));
-            if (campo == null) throw new KeyNotFoundException();
-            if (campo.FieldType != Enums.EFieldType.String) throw new InvalidCastException(string.Format("Field {0} is not a string field. ({1})", campo.Name, campo.FieldType.ToString()));
             var profilo = Profiles[index];
-            if (profilo.ContainsKey(campo.DbFieldName))
-                return profilo[campo.DbFieldName].ToString();
+            string fieldName = string.Empty;
+            if (campo == null)
+            {
+                // verifico se esiste una proprietà con lo stesso nome
+                if (profilo.ContainsKey(externalid))
+                    fieldName = externalid;
+                else
+                    throw new KeyNotFoundException();
+            }
+            else
+            {
+                fieldName = campo.DbFieldName;
+                if (campo.FieldType != Enums.EFieldType.String) throw new InvalidCastException(string.Format("Field {0} is not a string field. ({1})", campo.Name, campo.FieldType.ToString()));
+            }
+            if (profilo.ContainsKey(fieldName))
+                return (profilo[fieldName] == null) ? null : profilo[fieldName].ToString();
             else
                 return string.Empty;
         }
