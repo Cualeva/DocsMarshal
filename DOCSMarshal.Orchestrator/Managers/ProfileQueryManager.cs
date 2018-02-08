@@ -18,22 +18,20 @@ namespace DocsMarshal.Orchestrator.Managers
 
         public void Dispose()
         {
-            if (Orchestrator != null) Orchestrator = null;
+            if (Orchestrator != null)
+                Orchestrator = null;
         }
-
 
         public async Task<ProfileSearchResult> ExecuteAsync(ProfileSearch query)
         {
             if (query == null) throw new ArgumentNullException("query cannot be null");
-            var serializedItem = JsonConvert.SerializeObject(query);
             using (var client = new HttpClient())
             {
                 try
                 {
-                    var url = query.SearchUrl(Orchestrator.DocsMarshalUrl);
                     if (string.IsNullOrWhiteSpace(query.sessionID)) query.sessionID = Orchestrator.SessionId;
+                    var serializedItem = JsonConvert.SerializeObject(query);
                     var response = await client.PostAsync(query.SearchUrl(Orchestrator.DocsMarshalUrl), new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                    var ricerca = new DocsMarshal.Entities.ProfileSearch();
                     string rit = response.Content.ReadAsStringAsync().Result;
                     var ritO = JsonConvert.DeserializeObject<Root>(rit);
                     if (ritO != null && ritO.Result != null)
@@ -46,19 +44,12 @@ namespace DocsMarshal.Orchestrator.Managers
                 {
                     throw ex;
                 }
-
-
             }
-
         }
 
         private class Root
         {
             public DocsMarshal.Entities.ProfileSearchResult Result { get; set; }
         }
-
-
-
     }
 }
-

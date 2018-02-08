@@ -20,12 +20,12 @@ namespace DocsMarshal.Orchestrator.Managers
 
         public string Profile_GetDocumentByFieldExternalId(Guid objectId, string fieldExternalId)
         {
-            throw new NotImplementedException();
+            return Profile_GetDocumentByFieldExternalId(objectId, fieldExternalId, Orchestrator.SessionId);
         }
 
         public string Profile_GetDocumentByFieldExternalId(Guid objectId, string fieldExternalId, string staticSessionId)
         {
-            throw new NotImplementedException();
+            return string.Format("{0}/Profile/GetDocumentByFieldExternalId?objectId={1}&fieldExternalId={2}&staticSessionId={3}", Orchestrator.DocsMarshalUrl, objectId, fieldExternalId, staticSessionId);
         }
 
         public string Profile_GetDocumentByFieldId(Guid objectId, int fieldId)

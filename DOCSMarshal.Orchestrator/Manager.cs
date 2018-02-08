@@ -22,7 +22,6 @@ namespace DocsMarshal.Orchestrator
             DocsMarshalUrl = docsmarshalUrl;
             Profile = new Managers.ProfileManager(this);
             Portal = new Managers.PortalManager(this);
-
         }
 
         public IProfileManager Profile { get; private set; }

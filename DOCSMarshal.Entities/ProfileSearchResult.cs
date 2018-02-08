@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocsMarshal.Entities.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,11 +7,28 @@ namespace DocsMarshal.Entities
 {
     public class ProfileSearchResult
     {
-        public ProfileSearchResult()
+        public bool HasError { get; set; }
+        public string Error { get; set; }
+        public List<Field> Fields { get; set; }
+        public List<Dictionary<string,object>> Profiles { get; set; }
+        public List<Languages> Languages { get; set; }
+
+        public List<IProfile> GetResultAsProfiles()
         {
+            var Result = new List<IProfile>();
+
+            if (Profiles == null)
+                throw new ArgumentNullException("ProfileSearchResult.Profiles");
+            if (Fields == null)
+                throw new ArgumentNullException("ProfileSearchResult.Fields");
+
+            for (var i = 0; i < Profiles.Count; ++i)
+                Result.Add(new Profile(this, i));
+
+            return Result;
         }
 
-
+        #region Deprecated
         public Guid? GetGuidValueFromProfileByExternalId(int index, string externalid)
         {
             if (Profiles == null || index >= Profiles.Count) throw new IndexOutOfRangeException("Index");
@@ -185,7 +203,7 @@ namespace DocsMarshal.Entities
             var valore = GetBooleanValueFromProfileByExternalId(index, externalid);
             if (valore == null)
                 return valueIfNullValue;
-            else 
+            else
                 return valore.Value;
         }
 
@@ -206,13 +224,6 @@ namespace DocsMarshal.Entities
             else
                 return null;
         }
-
-        public bool HasError { get; set; }
-        public string Error { get; set; }
-        public List<Field> Fields { get; set; }
-        public List<Dictionary<string,object>> Profiles { get; set; }
-        public List<Languages> Languages { get; set; }
+        #endregion
     }
 }
-
-    

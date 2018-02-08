@@ -30,7 +30,6 @@ namespace DocsMarshal.Entities.Interfaces
         int UserId { get; }
         int DeleteStatus { get; }
 
-
         #region CampiProtocollo
         Guid? IdRegister { get;  }
         string ProtocolCode { get; }
@@ -51,10 +50,13 @@ namespace DocsMarshal.Entities.Interfaces
         string GetMultilanguageFieldValueByExternalId(string externalId, string lang);
         string GetMultilanguageFieldValueById(int id, int languegeId);
 
+        Dictionary<string, string> GetMultilanguageFieldValuesByExternalId(string externalId);
+        Dictionary<int, string> GetMultilanguageFieldValuesById(int id);
+
         //List<KeyValuePair<string, string>> ToKeyValuePairs();
         //List<KeyValuePair<string, string>> ToKeyValuePairs(int? languageId);
         //List<KeyValuePair<string, string>> ToKeyValuePairs(int? languageId, bool useExternalIdIfExist);
-        //Dictionary<string, object> ToDictionary();
+        Dictionary<string, object> ToDictionary();
         //Dictionary<string, object> ToDictionary(bool useExternalIdIfExist);
         //Dictionary<string, object> ToDictionary(int? languageId);
         //Dictionary<string, object> ToDictionary(int? languageId, bool useExternalIdIfExist);
