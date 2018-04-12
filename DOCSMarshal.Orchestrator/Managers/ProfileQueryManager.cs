@@ -36,7 +36,7 @@ namespace DocsMarshal.Orchestrator.Managers
                     var ritO = JsonConvert.DeserializeObject<Root>(rit);
                     if (ritO != null && ritO.Result != null)
                     {
-                        if (ritO.Result.Profiles == null) ritO.Result.Profiles = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>>();
+                            if (ritO.Result.Profiles == null) ritO.Result.Profiles = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>>();
                     }
                     return ritO.Result;
                 }

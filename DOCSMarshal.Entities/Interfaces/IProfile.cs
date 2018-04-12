@@ -43,6 +43,7 @@ namespace DocsMarshal.Entities.Interfaces
         string GetStringValue_By_ExternalId(string externalId);
         Guid? GetGuidValue_By_ExternalId(string externalId);
         Decimal? GetDecimalValue_By_ExternalId(string externalId);
+        Double? GetDoubleValue_By_ExternalId(string externalId);
         int? GetIntValue_By_ExternalId(string externalId);
         bool? GetBoolValue_By_ExternalId(string externalId);
         DateTime? GetDateTimeValue_By_ExternalId(string externalId);

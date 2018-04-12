@@ -25,7 +25,7 @@ namespace DocsMarshal.Orchestrator.Managers
 
         public string Profile_GetDocumentByFieldExternalId(Guid objectId, string fieldExternalId, string staticSessionId)
         {
-            return string.Format("{0}/Profile/GetDocumentByFieldExternalId?objectId={1}&fieldExternalId={2}&staticSessionId={3}", Orchestrator.DocsMarshalUrl, objectId, fieldExternalId, staticSessionId);
+            return string.Format("{0}/Profile/GetDocumentByFieldExternalId?objectId={1}&fieldExternalId={2}&SessionId={3}", Orchestrator.DocsMarshalUrl, objectId, fieldExternalId, staticSessionId);
         }
 
         public string Profile_GetDocumentByFieldId(Guid objectId, int fieldId)
@@ -35,7 +35,7 @@ namespace DocsMarshal.Orchestrator.Managers
 
         public string Profile_GetDocumentByFieldId(Guid objectId, int fieldId, string staticSessionId)
         {
-            return string.Format("{0}/Profile/GetDocumentByFieldId?objectId={1}&fieldId={2}&staticSessionId={3}", Orchestrator.DocsMarshalUrl, objectId, fieldId, staticSessionId);
+            return string.Format("{0}/Profile/GetDocumentByFieldId?objectId={1}&fieldId={2}&SessionId={3}", Orchestrator.DocsMarshalUrl, objectId, fieldId, staticSessionId);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DocsMarshal.Entities.Interfaces;
 
 namespace DocsMarshal.Entities
 {
@@ -308,5 +309,25 @@ namespace DocsMarshal.Entities
         {
             return new Dictionary<string, object>(this.ProfileAsDictionary);
         }
+
+        public double? GetDoubleValue_By_ExternalId(string externalId)
+        {
+            var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.Decimal);
+            return GetDoubleValueFromDictionary(Field.DbFieldName);
+        }
+
+        private double? GetDoubleValueFromDictionary(string key)
+        {
+            var Value = GetValueFromDictionary(key);
+            if (Value == null)
+                return null;
+            double Result;
+            if (double.TryParse(Value.ToString(), out Result))
+                return Result;
+            else
+                throw new InvalidCastException(key);
+        }
+
+
     }
 }

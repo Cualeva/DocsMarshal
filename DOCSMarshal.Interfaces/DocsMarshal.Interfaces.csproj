@@ -59,7 +59,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DOCSMarshal.Entities\DOCSMarshal.Entities.csproj">
       <Project>{5D5E0ED5-C2EF-470F-8F4D-DBFB747BB543}</Project>
-      <Name>DocsMarshal.Entities</Name>
+      <Name>DOCSMarshal.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
