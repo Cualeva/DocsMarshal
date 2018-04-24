@@ -1,14 +1,29 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using DocsMarshal.Entities;
 using SQLite;
 
-namespace DOCSMarshal.MVVM.Models
+namespace DocsMarshal.MVVM.Models
 {
-    public class BaseModelEntity
+    public class BaseModelEntity:INotifyPropertyChanged
     {
         public BaseModelEntity()
         {
         }
+
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            var changed = PropertyChanged;
+            if (changed == null)
+                return;
+
+            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
 
         [PrimaryKey]
         public Guid Objectid { get; set; }
@@ -22,7 +37,7 @@ namespace DOCSMarshal.MVVM.Models
         public DateTime LastUpdate { get; set; }
 
 
-        internal void LoadStandardFieldFromProfileSearchResult(DocsMarshal.Entities.Interfaces.IProfile profile)
+        public void LoadStandardFieldFromProfileSearchResult(DocsMarshal.Entities.Interfaces.IProfile profile)
         {
             this.Objectid = profile.ObjectId;
             this.DomainId = profile.DomainId;

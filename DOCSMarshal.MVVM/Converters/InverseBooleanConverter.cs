@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace DOCSMarshal.MVVM.Converters
+namespace DocsMarshal.MVVM.Converters
 {
     public class InverseBooleanConverter : IValueConverter
     {

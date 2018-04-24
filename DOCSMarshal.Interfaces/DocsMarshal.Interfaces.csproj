@@ -10,6 +10,7 @@
     <AssemblyName>DOCSMarshal.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,7 +60,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DOCSMarshal.Entities\DOCSMarshal.Entities.csproj">
       <Project>{5D5E0ED5-C2EF-470F-8F4D-DBFB747BB543}</Project>
-      <Name>DOCSMarshal.Entities</Name>
+      <Name>DocsMarshal.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

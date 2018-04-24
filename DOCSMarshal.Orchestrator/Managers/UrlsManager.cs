@@ -13,6 +13,11 @@ namespace DocsMarshal.Orchestrator.Managers
             Orchestrator = manager;
         }
 
+        public string Login()
+        {
+            return string.Format("{0}/DMLogin/Login", Orchestrator.DocsMarshalUrl);
+        }
+
         public void Dispose()
         {
             Orchestrator = null;
@@ -37,5 +42,7 @@ namespace DocsMarshal.Orchestrator.Managers
         {
             return string.Format("{0}/Profile/GetDocumentByFieldId?objectId={1}&fieldId={2}&SessionId={3}", Orchestrator.DocsMarshalUrl, objectId, fieldId, staticSessionId);
         }
+
+     
     }
 }

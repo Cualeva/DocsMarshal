@@ -2,6 +2,10 @@
 using DocsMarshal.Interfaces.Managers.Profile;
 using DocsMarshal.Interfaces.Managers.Portal;
 using DocsMarshal.Interfaces;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DocsMarshal.Orchestrator
 {
@@ -33,9 +37,37 @@ namespace DocsMarshal.Orchestrator
             if (Portal != null) { Portal.Dispose(); Portal = null; };
         }
 
-        public bool Logon(string username, string password, string softwareName)
+        public async Task<Entities.LogonToken> Logon(string username, string password, string softwareName)
         {
+            if (string.IsNullOrWhiteSpace(username)) throw new ArgumentNullException("username cannot be empty");
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    var serializedItem = JsonConvert.SerializeObject(new{username=username, password=password, softwareName=softwareName});
+                    var response = await client.PostAsync(Portal.Urls.Login(), new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                    string rit = response.Content.ReadAsStringAsync().Result;
+                    var ritO = await Task.Run(() => JsonConvert.DeserializeAnonymousType(rit, new { Result = new Entities.LogonToken() }).Result);
+                    if (ritO.LoggedIn)
+                    {
+                        SessionId = ritO.SessionId.ToString();
+                        SoftwareName = softwareName;
+                    }
+                    else
+                        SessionId = string.Empty;
+                    
+
+                   return ritO;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
             throw new NotImplementedException();
+
+     
         }
 
         public bool Logon(string staticSessionId, string softwareName)
@@ -44,6 +76,8 @@ namespace DocsMarshal.Orchestrator
             SessionId = staticSessionId;
             SoftwareName = softwareName;
             return true;
+
+           
         }
     }
 }

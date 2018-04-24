@@ -7,10 +7,11 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UseMSBuildEngine>true</UseMSBuildEngine>
     <OutputType>Library</OutputType>
-    <RootNamespace>DOCSMarshal.MVVM</RootNamespace>
+    <RootNamespace>DocsMarshal.MVVM</RootNamespace>
     <AssemblyName>DOCSMarshal.MVVM</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +33,7 @@
     <Compile Include="Models\BaseModelEntity.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Converters\UpperCaseConverter.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -62,11 +64,12 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Converters\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DOCSMarshal.Entities\DOCSMarshal.Entities.csproj">
       <Project>{5D5E0ED5-C2EF-470F-8F4D-DBFB747BB543}</Project>
-      <Name>DOCSMarshal.Entities</Name>
+      <Name>DocsMarshal.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
