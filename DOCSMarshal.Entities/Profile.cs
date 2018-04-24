@@ -7,7 +7,7 @@ using DocsMarshal.Entities.Interfaces;
 
 namespace DocsMarshal.Entities
 {
-    class Profile : Interfaces.IProfile
+    public class Profile : Interfaces.IProfile
     {
         public string ClassType { get; private set; }
         public int ClassTypeId { get; private set; }

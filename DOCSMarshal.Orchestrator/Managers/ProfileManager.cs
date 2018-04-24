@@ -11,12 +11,14 @@ namespace DocsMarshal.Orchestrator.Managers
         {
             Orchestrator = manager;
             Search = new ProfileSearchManager(Orchestrator);
-            Documents = new ProfileDocumentManager(Orchestrator); 
+            Documents = new ProfileDocumentManager(Orchestrator);
+            Archive = new ProfileArchiveManager(Orchestrator);
         }
 
 
         public IProfileSearchManager Search { get; private set; }
         public IProfileDocumentManager Documents { get; private set; }
+        public IProfileArchiveManager Archive { get; private set; }
 
         public void Dispose()
         {

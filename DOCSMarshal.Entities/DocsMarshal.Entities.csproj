@@ -48,6 +48,7 @@
     <Compile Include="ProfileForInsert.cs" />
     <Compile Include="FieldValue.cs" />
     <Compile Include="LogonToken.cs" />
+    <Compile Include="ProfileInserted.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

@@ -5,8 +5,8 @@ namespace DocsMarshal.Interfaces.Managers.Profile
 {
     public interface IProfileArchiveManager: IDisposable
     {
-        Entities.ProfileForInsert GetNewInstanceForInsertByClassTypeExternalId(string classTypeExternalId);   
-        //Entities.ProfileInserted Insert(Entities.ProfileForInsert profileForInsert);
+        Task<Entities.ProfileForInsert> GetNewInstanceForInsertByClassTypeExternalId(string classTypeExternalId);
+        Task<Entities.ProfileInserted> Insert(Entities.ProfileForInsert profileForInsert);
         //Entities.ProfileForUpdate GetNewInstanceForUpdate(Guid objectId);
         //Entities.ProfileUpdated Update(Entities.ProfileForUpdate profileForUpdate);
     }

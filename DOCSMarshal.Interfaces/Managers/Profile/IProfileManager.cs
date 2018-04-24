@@ -5,5 +5,6 @@ namespace DocsMarshal.Interfaces.Managers.Profile
     {
         IProfileSearchManager Search { get; }
         IProfileDocumentManager Documents { get; }
+        IProfileArchiveManager Archive { get; }
     }
 }
