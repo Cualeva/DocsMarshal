@@ -35,6 +35,7 @@ namespace DocsMarshal.MVVM.Models
         public string ObjectStateExternalId { get; set; }
         public DateTime InsertDt { get; set; }
         public DateTime LastUpdate { get; set; }
+        public string LanguageCode { get; set; }
 
 
         public void LoadStandardFieldFromProfileSearchResult(DocsMarshal.Entities.Interfaces.IProfile profile)
@@ -48,6 +49,7 @@ namespace DocsMarshal.MVVM.Models
             this.ClassTypeExternalId = profile.ClassType_ExternalId;
             this.LastUpdate = profile.LastUpdate;
             this.InsertDt = profile.InsertDt;
+            this.LanguageCode = profile.LanguageCode;
         }
 
 
@@ -62,6 +64,18 @@ namespace DocsMarshal.MVVM.Models
             InsertDt = risultato.GetDateTimeValueFromProfileByExternalId(i, "InsertDt").Value;
             DomainExternalId = risultato.GetStringValueFromProfileByExternalId(i, "Domain_ExternalId");
             ObjectStateExternalId = risultato.GetStringValueFromProfileByExternalId(i, "ObjectState_ExternalId");
+     
+        }
+
+        public DocsMarshal.Entities.ProfileForInsert ToProfileForInsert(bool raiseWorkflowEvents)
+        {
+            var ritorno = new DocsMarshal.Entities.ProfileForInsert();
+            ritorno.ClassTypeExternalID = ClassTypeExternalId;
+            ritorno.DomainExternalID = DomainExternalId;
+            ritorno.ObjectStateExternalID = ObjectStateExternalId;
+            ritorno.LanguageCode = LanguageCode;
+            ritorno.RaiseWorkflowEvents = raiseWorkflowEvents;
+            return ritorno;
         }
     }
 }

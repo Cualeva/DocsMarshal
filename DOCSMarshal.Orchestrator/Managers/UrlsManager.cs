@@ -43,6 +43,9 @@ namespace DocsMarshal.Orchestrator.Managers
             return string.Format("{0}/Profile/GetDocumentByFieldId?objectId={1}&fieldId={2}&SessionId={3}", Orchestrator.DocsMarshalUrl, objectId, fieldId, staticSessionId);
         }
 
-     
+        public string Insert()
+        {
+            return string.Format("{0}/DMProfile/Insert", Orchestrator.DocsMarshalUrl);
+        }
     }
 }

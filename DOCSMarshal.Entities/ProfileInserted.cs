@@ -3,7 +3,7 @@ namespace DocsMarshal.Entities
 {
     public class ProfileInserted
     {
-        private ProfileInserted()
+        public ProfileInserted()
         {
         }
 

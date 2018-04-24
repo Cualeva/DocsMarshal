@@ -48,30 +48,28 @@ namespace DocsMarshal.Orchestrator.Managers
             return await InsertAsync(profile);
         }
 
-        public async Task<ProfileInserted> InsertAsync(DocsMarshal.Entities.ProfileForInsert profile)
+        public async Task<ProfileInserted> InsertAsync(DocsMarshal.Entities.ProfileForInsert profileForInsert)
         {
-            // controllo che il profilo non sia null
-            if (profile == null) throw new ArgumentNullException("profile is null");
-            using (var client = new HttpClient())
+            try
             {
-                string url = string.Format("{0}/{1}", Orchestrator.DocsMarshalUrl, "/DMProfile/Insert");
-                UriBuilder builder = new UriBuilder(url);
-                var tmpQuery = string.Format("sessionId={0}&RaiseWorkflowEvents={1}&ClassTypeExternalID={2}", Orchestrator.SessionId,
-                                             profile.RaiseWorkflowEvents, profile.DomainExternalID);
-                // per ogni field dell profile aggiungo il valore all'url
-                var k = 0;
-                foreach (var campo in profile.Fields)
+                // controllo che il profilo non sia null
+                if (profileForInsert == null) throw new ArgumentNullException("profile is null");
+                using (var client = new HttpClient())
                 {
-                    tmpQuery = string.Format("{0}&ExternalId[{1}]={2}&Value[{1}]={3}&ValueType[{1}]={4}", tmpQuery,
-                                             k, campo.ExternalID, campo.Value, campo.FieldType.ToString());
-                    k++;
+                    string url = Orchestrator.Portal.Urls.Insert();
+                    UriBuilder builder = new UriBuilder(url);
+                    var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, ProfileForInsert = profileForInsert });
+                    var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                    string rit = response.Content.ReadAsStringAsync().Result;
+                    var ritO = await Task.Run(() => JsonConvert.DeserializeAnonymousType(rit, new { Result = new Entities.ProfileInserted() }).Result);
+                    return ritO;
                 }
-                builder.Query = tmpQuery;
-                var response = await client.GetAsync(builder.Uri);
-                string rit = await response.Content.ReadAsStringAsync();
-                var ritO = JsonConvert.DeserializeObject<inserted>(rit);
-                return ritO.result;
             }
+            catch (Exception ex)
+            {
+                return new ProfileInserted { Error = ex.Message, HasError = true };
+            }
+
         }
 
         class root
