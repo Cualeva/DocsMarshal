@@ -49,6 +49,10 @@
     <Compile Include="FieldValue.cs" />
     <Compile Include="LogonToken.cs" />
     <Compile Include="ProfileInserted.cs" />
+    <Compile Include="ProfileForUpdate.cs" />
+    <Compile Include="Interfaces\IProfileFor.cs" />
+    <Compile Include="ProfileUpdated.cs" />
+    <Compile Include="ProfileDeleted.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

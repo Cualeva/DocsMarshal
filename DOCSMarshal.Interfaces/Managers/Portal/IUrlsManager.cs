@@ -5,8 +5,6 @@ namespace DocsMarshal.Interfaces.Managers.Portal
 {
     public interface IUrlsManager: IDisposable
     {
-        string Login();
-        string Insert();
         string Profile_GetDocumentByFieldId(Guid objectId, int fieldId);
         string Profile_GetDocumentByFieldId(Guid objectId, int fieldId, string staticSessionId);
         string Profile_GetDocumentByFieldExternalId(Guid objectId, string fieldExternalId);

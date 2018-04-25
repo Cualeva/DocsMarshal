@@ -8,10 +8,11 @@ namespace DocsMarshal.MVVM.Models
 {
     public class BaseModelEntity:INotifyPropertyChanged
     {
+       
         public BaseModelEntity()
         {
-        }
 
+        }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -67,14 +68,27 @@ namespace DocsMarshal.MVVM.Models
      
         }
 
+
+        internal void AddStdFieldToIProfileFor(DocsMarshal.Entities.Interfaces.IProfileFor profileFor, bool raiseWorkflowEvents)
+        {
+            profileFor.ClassTypeExternalID = ClassTypeExternalId;
+            profileFor.DomainExternalID = DomainExternalId;
+            profileFor.ObjectStateExternalID = ObjectStateExternalId;
+            profileFor.LanguageCode = LanguageCode;
+            profileFor.RaiseWorkflowEvents = raiseWorkflowEvents;
+        }
+
         public DocsMarshal.Entities.ProfileForInsert ToProfileForInsert(bool raiseWorkflowEvents)
         {
             var ritorno = new DocsMarshal.Entities.ProfileForInsert();
-            ritorno.ClassTypeExternalID = ClassTypeExternalId;
-            ritorno.DomainExternalID = DomainExternalId;
-            ritorno.ObjectStateExternalID = ObjectStateExternalId;
-            ritorno.LanguageCode = LanguageCode;
-            ritorno.RaiseWorkflowEvents = raiseWorkflowEvents;
+            AddStdFieldToIProfileFor(ritorno, raiseWorkflowEvents);
+            return ritorno;
+        }
+
+        public DocsMarshal.Entities.ProfileForUpdate ToProfileForUpdate(bool raiseWorkflowEvents)
+        {
+            var ritorno = new DocsMarshal.Entities.ProfileForUpdate();
+            AddStdFieldToIProfileFor(ritorno, raiseWorkflowEvents);
             return ritorno;
         }
     }

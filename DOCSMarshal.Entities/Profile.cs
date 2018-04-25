@@ -9,32 +9,35 @@ namespace DocsMarshal.Entities
 {
     public class Profile : Interfaces.IProfile
     {
-        public string ClassType { get; private set; }
-        public int ClassTypeId { get; private set; }
-        public string ClassType_ExternalId { get; private set; }
-        public int DeleteStatus { get; private set; }
-        public string Domain { get; private set; }
-        public int DomainId { get; private set; }
-        public string Domain_ExternalId { get; private set; }
-        public Guid? IdRegister { get; private set; }
-        public DateTime InsertDt { get; private set; }
-        public string LanguageCode { get; private set; }
-        public int? LanguageId { get; private set; }
-        public DateTime LastUpdate { get; private set; }
-        public Guid ObjectId { get; private set; }
-        public string ObjectState { get; private set; }
-        public int ObjectStateId { get; private set; }
-        public string ObjectState_ExternalId { get; private set; }
-        public string ProtocolCode { get; private set; }
-        public int? ProtocolDomainId { get; private set; }
-        public DateTime? ProtocolInsertDt { get; private set; }
-        public int? ProtocolNumber { get; private set; }
-        public int? ProtocolYear { get; private set; }
-        public int UserId { get; private set; }
+        public string ClassType { get;  set; }
+        public int ClassTypeId { get;  set; }
+        public string ClassType_ExternalId { get;  set; }
+        public int DeleteStatus { get;  set; }
+        public string Domain { get;  set; }
+        public int DomainId { get;  set; }
+        public string Domain_ExternalId { get;  set; }
+        public Guid? IdRegister { get;  set; }
+        public DateTime InsertDt { get;  set; }
+        public string LanguageCode { get;  set; }
+        public int? LanguageId { get;  set; }
+        public DateTime LastUpdate { get;  set; }
+        public Guid ObjectId { get;  set; }
+        public string ObjectState { get;  set; }
+        public int ObjectStateId { get;  set; }
+        public string ObjectState_ExternalId { get;  set; }
+        public string ProtocolCode { get;  set; }
+        public int? ProtocolDomainId { get;  set; }
+        public DateTime? ProtocolInsertDt { get;  set; }
+        public int? ProtocolNumber { get;  set; }
+        public int? ProtocolYear { get;  set; }
+        public int UserId { get;  set; }
 
-        private List<Field> Fields { get; set; }
+        public List<Field> Fields { get; set; }
         private Dictionary<string, object> ProfileAsDictionary { get; set; }
         private List<Languages> Languages { get; set; }
+
+        public Profile()
+        {}
 
         public Profile(ProfileSearchResult Result, int i)
         {
@@ -61,8 +64,15 @@ namespace DocsMarshal.Entities
             this.ObjectStateId = GetIntValueFromDictionary("ObjectStateId").Value;
             this.ObjectState_ExternalId = GetStringValueFromDictionary("ObjectState_ExternalId");
             this.ObjectState = GetStringValueFromDictionary("ObjectState");
-            //this.LanguageId = GetIntValueFromDictionary("LanguageId").Value;
-            //this.LanguageCode = GetStringValueFromDictionary("LanguageCode");
+            if (ProfileAsDictionary.ContainsKey("LanguageId"))
+            {
+                this.LanguageId = GetIntValueFromDictionary("LanguageId");
+                if (LanguageId.HasValue)
+                {
+                    var langCode = Languages.FirstOrDefault(x => x.Id == LanguageId.Value);
+                    if (langCode != null) this.LanguageCode = langCode.Code;
+                }
+            }
             //this.IdRegister = GetGuidValueFromDictionary("IdRegister");
             //this.ProtocolCode = GetStringValueFromDictionary("ProtocolCode");
             //this.ProtocolDomainId = GetIntValueFromDictionary("ProtocolDomainId");

@@ -44,8 +44,9 @@ namespace DocsMarshal.Orchestrator
             {
                 try
                 {
+                    var url = string.Format("{0}/DMLogin/Login", DocsMarshalUrl);
                     var serializedItem = JsonConvert.SerializeObject(new{username=username, password=password, softwareName=softwareName});
-                    var response = await client.PostAsync(Portal.Urls.Login(), new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                    var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
                     string rit = response.Content.ReadAsStringAsync().Result;
                     var ritO = await Task.Run(() => JsonConvert.DeserializeAnonymousType(rit, new { Result = new Entities.LogonToken() }).Result);
                     if (ritO.LoggedIn)

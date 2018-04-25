@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace DocsMarshal.Entities
 {
-    public class ProfileForUpdate:Interfaces.IProfileFor
+    public class ProfileForInsert: Interfaces.IProfileFor
     {
-        public ProfileForUpdate()
+        public ProfileForInsert()
         {
             Fields = new List<FieldValue>();
         }
