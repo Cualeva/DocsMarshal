@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace DocsMarshal.Entities
 {
-    public class ProfileForInsert: Interfaces.IProfileFor
+    public class ProfileForUpdate : Interfaces.IProfileFor
     {
-        public ProfileForInsert()
+        public ProfileForUpdate()
         {
             Fields = new List<FieldValue>();
         }
-
+        public Guid ObjectId { get; set; }
         public Boolean RaiseWorkflowEvents { get; set; }
         public string DomainExternalID { get; set; }
         public string ClassTypeExternalID { get; set; }
@@ -17,4 +17,5 @@ namespace DocsMarshal.Entities
         public string LanguageCode { get; set; }
         public List<FieldValue> Fields { get; set; }
     }
+
 }

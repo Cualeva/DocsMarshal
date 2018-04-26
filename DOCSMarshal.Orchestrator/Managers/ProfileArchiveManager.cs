@@ -116,7 +116,7 @@ namespace DocsMarshal.Orchestrator.Managers
                 using (var client = new HttpClient())
                 {
                     string url = string.Format("{0}/DMProfile/Update", Orchestrator.DocsMarshalUrl);
-                    var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, ProfileForUpdate = profileForUpdate });
+                    var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, ProfileForUpdate = profileForUpdate, ObjectId= profileForUpdate.ObjectId });
                     var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
                     string rit = response.Content.ReadAsStringAsync().Result;
                     var ritO = await Task.Run(() => JsonConvert.DeserializeAnonymousType(rit, new { Result = new Entities.ProfileUpdated() }).Result);

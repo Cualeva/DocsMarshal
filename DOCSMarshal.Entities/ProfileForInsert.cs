@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace DocsMarshal.Entities
 {
-    public class ProfileForUpdate:Interfaces.IProfileFor
+    public class ProfileForInsert : Interfaces.IProfileFor
     {
-        public ProfileForUpdate()
+        public ProfileForInsert()
         {
             Fields = new List<FieldValue>();
         }
@@ -17,4 +17,5 @@ namespace DocsMarshal.Entities
         public string LanguageCode { get; set; }
         public List<FieldValue> Fields { get; set; }
     }
+
 }
