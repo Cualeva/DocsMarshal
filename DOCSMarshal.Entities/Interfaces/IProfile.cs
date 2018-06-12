@@ -50,6 +50,7 @@ namespace DocsMarshal.Entities.Interfaces
         DateTime? GetDateValue_By_ExternalId(string externalId);
         string GetMultilanguageFieldValueByExternalId(string externalId, string lang);
         string GetMultilanguageFieldValueById(int id, int languegeId);
+		Guid? GetStorageIdValue_By_ByteArrayFieldExternalId(string externalId);
 
         Dictionary<string, string> GetMultilanguageFieldValuesByExternalId(string externalId);
         Dictionary<int, string> GetMultilanguageFieldValuesById(int id);

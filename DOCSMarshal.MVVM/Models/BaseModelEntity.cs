@@ -14,6 +14,20 @@ namespace DocsMarshal.MVVM.Models
 
         }
 
+        public BaseModelEntity(BaseModelEntity fromOtherEntity)
+        {
+            this.Objectid = fromOtherEntity.Objectid;
+            this.DomainId = fromOtherEntity.DomainId;
+            this.DomainExternalId = fromOtherEntity.DomainExternalId;
+            this.ClassTypeId = fromOtherEntity.ClassTypeId;
+            this.ObjectStateId = fromOtherEntity.ObjectStateId;
+            this.ObjectStateExternalId = fromOtherEntity.ObjectStateExternalId;
+            this.ClassTypeExternalId = fromOtherEntity.ClassTypeExternalId;
+            this.LastUpdate = fromOtherEntity.LastUpdate;
+            this.InsertDt = fromOtherEntity.InsertDt;
+            this.LanguageCode = fromOtherEntity.LanguageCode;
+        }
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

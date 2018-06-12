@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,9 +42,9 @@ namespace DocsMarshal.Orchestrator.Managers
             throw new NotImplementedException();
         }
 
-        public async Task<Entities.ProfileSearchResult> ById(Guid Id)
+        public async Task<Entities.Profile> ById(Guid Id)
         {
-            CallById c = new CallById();
+           CallById c = new CallById();
             c.ObjectId = Id.ToString();
             c.sessionID = Orchestrator.SessionId;
             var serializedItem = JsonConvert.SerializeObject(c);
@@ -52,10 +53,29 @@ namespace DocsMarshal.Orchestrator.Managers
                 var url = string.Format("{0}/DMSearch/GetProfileByObjectId", Orchestrator.DocsMarshalUrl);
                 var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
                 string rit = response.Content.ReadAsStringAsync().Result;
-                //var ritO = JsonConvert.DeserializeObject<Root>(rit);
-                //return ritO.Result;
-                throw new NotImplementedException();
+                var ritO = JsonConvert.DeserializeAnonymousType(rit, new { result = new Root() }).result;
+                if (ritO == null || ritO.Profiles == null) return null;
+                var profilo = ritO.Profiles.FirstOrDefault();
+                if (profilo != null)
+                {
+                  //  profilo.Fields.ToDictionary<string, object>();
+                }
+                return profilo;
             }
+
+        }
+
+        private class CampoMultiLingua
+        {
+            public int Id { get; set; }
+            public string Lang { get; set; }
+        }
+
+        private class Root
+        {
+            public string Error { get; set; }
+            public DocsMarshal.Entities.Profile[] Profiles { get; set; }
+            public bool HasError { get; set; }
         }
 
         private class CallById

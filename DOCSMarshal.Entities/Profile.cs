@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DocsMarshal.Entities.Interfaces;
+using Newtonsoft.Json;
 
 namespace DocsMarshal.Entities
 {
@@ -34,7 +35,39 @@ namespace DocsMarshal.Entities
 
         public List<Field> Fields { get; set; }
         private Dictionary<string, object> ProfileAsDictionary { get; set; }
-        private List<Languages> Languages { get; set; }
+        private List<Languages> _Languages = null;
+        public List<Languages> Languages { 
+            get
+            {
+                if (_Languages == null)
+                {
+                    if (Fields != null)
+                    {
+                        // cerco di recuperare l'elenco delle lingue presenti nei campi aggiuntivi di tipo lingua per popolare 
+                        var campiMultiLingua = Fields.Where(x => x.FieldType == Entities.Enums.EFieldType.MultiLanguage).ToList();
+                        foreach (var campo in campiMultiLingua)
+                        {
+                            if (campo.GenericValue == null) continue;
+                            var valore = campo.GenericValue.ToString();
+                            if (string.IsNullOrWhiteSpace(valore)) continue;
+                            var lingue = JsonConvert.DeserializeAnonymousType(valore, new List<Languages>());
+                            if (_Languages == null) _Languages = new List<Languages>();
+                            foreach (var lingua in lingue)
+                            {
+                                if (_Languages.Count(x => x.Id == lingua.Id) == 0) _Languages.Add(lingua);
+                            }
+                        }
+                    }
+                    else
+                        _Languages = new List<Languages>();
+                }
+                return _Languages;
+            }
+            set
+            {
+                _Languages = value;
+            }
+        }
 
         public Profile()
         {}
@@ -49,8 +82,9 @@ namespace DocsMarshal.Entities
                 throw new ArgumentNullException("ProfileSearchResult.Fields");
             if (i < 0 || i >= Result.Profiles.Count)
                 throw new IndexOutOfRangeException(string.Format("Profile index {0} not found in ProfileSearchResult", i));
-
-            this.Fields = Result.Fields;
+            if (Result.Fields !=null)  
+                this.Fields = Result.Fields;
+            
             this.ProfileAsDictionary = Result.Profiles[i];
             this.Languages = Result.Languages;
 
@@ -64,15 +98,16 @@ namespace DocsMarshal.Entities
             this.ObjectStateId = GetIntValueFromDictionary("ObjectStateId").Value;
             this.ObjectState_ExternalId = GetStringValueFromDictionary("ObjectState_ExternalId");
             this.ObjectState = GetStringValueFromDictionary("ObjectState");
-            if (ProfileAsDictionary.ContainsKey("LanguageId"))
-            {
-                this.LanguageId = GetIntValueFromDictionary("LanguageId");
-                if (LanguageId.HasValue)
+            if (ProfileAsDictionary != null)
+                if (ProfileAsDictionary.ContainsKey("LanguageId"))
                 {
-                    var langCode = Languages.FirstOrDefault(x => x.Id == LanguageId.Value);
-                    if (langCode != null) this.LanguageCode = langCode.Code;
+                    this.LanguageId = GetIntValueFromDictionary("LanguageId");
+                    if (LanguageId.HasValue)
+                    {
+                        var langCode = Languages.FirstOrDefault(x => x.Id == LanguageId.Value);
+                        if (langCode != null) this.LanguageCode = langCode.Code;
+                    }
                 }
-            }
             //this.IdRegister = GetGuidValueFromDictionary("IdRegister");
             //this.ProtocolCode = GetStringValueFromDictionary("ProtocolCode");
             //this.ProtocolDomainId = GetIntValueFromDictionary("ProtocolDomainId");
@@ -221,6 +256,12 @@ namespace DocsMarshal.Entities
             return GetDateTimeValueFromDictionary(Field.DbFieldName);
         }
 
+		public Guid? GetStorageIdValue_By_ByteArrayFieldExternalId(string externalId)
+        {
+			var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.ByteArray);
+			return GetGuidValueFromDictionary(Field.DbFieldName);
+        }
+
         public DateTime? GetDateValue_By_ExternalId(string externalId)
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.Date);
@@ -266,7 +307,8 @@ namespace DocsMarshal.Entities
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.MultiLanguage);
             var Language = GetLangage_By_LanguageCode(lang);
-            var FieldCode = GetDbFieldCodeByFieldIdLanguageId(Field.Id, Language.Id);
+			var FieldCode = string.Format("{0}_{1}", Field.DbFieldName, Language.Id); 
+                                  
             return GetStringValueFromDictionary(FieldCode);
         }
 
