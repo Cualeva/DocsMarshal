@@ -56,10 +56,7 @@ namespace DocsMarshal.Orchestrator.Managers
                 var ritO = JsonConvert.DeserializeAnonymousType(rit, new { result = new Root() }).result;
                 if (ritO == null || ritO.Profiles == null) return null;
                 var profilo = ritO.Profiles.FirstOrDefault();
-                if (profilo != null)
-                {
-                  //  profilo.Fields.ToDictionary<string, object>();
-                }
+                // popolo il verrore "Dictionary interno"
                 return profilo;
             }
 
