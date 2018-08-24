@@ -14,6 +14,15 @@ namespace DocsMarshal.Entities
         public string ValueCultureInfoName { get; set; }
     }
 
+
+    public class FieldValueLang
+    {
+        public string Code{get;set;}
+        public string Name { get; set; }
+        public int Id { get; set; }   
+        public string Value { get; set; }   
+    }
+
     public class FieldValueInt: FieldValue
     {
         public FieldValueInt(string externalId, int? value, string valueCultureInfoName)

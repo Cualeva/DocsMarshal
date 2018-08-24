@@ -34,7 +34,7 @@ namespace DocsMarshal.Entities
         public int UserId { get;  set; }
 
         public List<Field> Fields { get; set; }
-        private Dictionary<string, object> ProfileAsDictionary { get; set; }
+        public Dictionary<string, object> ProfileAsDictionary { get; set; }
         private List<Languages> _Languages = null;
         public List<Languages> Languages { 
             get
@@ -118,15 +118,22 @@ namespace DocsMarshal.Entities
             //this.DeleteStatus = GetIntValueFromDictionary("DeleteStatus").Value;
         }
 
+
+        private object GetValueFromDictionary(string Key, bool raiseExceptionIfNotExist)
+        {
+            if (string.IsNullOrWhiteSpace(Key)) throw new ArgumentNullException("Key");
+            if (this.ProfileAsDictionary == null || !this.ProfileAsDictionary.ContainsKey(Key))
+                if (!raiseExceptionIfNotExist)
+                    return null;
+                else
+                    throw new Exception(string.Format("Key {0} not found", Key));
+            return this.ProfileAsDictionary[Key];
+        }
+
+
         private object GetValueFromDictionary(string Key)
         {
-            if (string.IsNullOrWhiteSpace(Key))
-                throw new ArgumentNullException("Key");
-            if (this.ProfileAsDictionary == null)
-                throw new ArgumentNullException("Profile.ProfileAsDictionary");
-            if (!this.ProfileAsDictionary.ContainsKey(Key))
-                throw new KeyNotFoundException(string.Format("Field key {0}", Key));
-            return this.ProfileAsDictionary[Key];
+            return GetValueFromDictionary(Key, false);
         }
 
         private bool? GetBoolValueFromDictionary(string Key)
@@ -148,7 +155,7 @@ namespace DocsMarshal.Entities
                 return null;
             DateTime Result;
             if (DateTime.TryParse(Value.ToString(), out Result))
-                return Result;
+                return Result.ToLocalTime();
             else
                 throw new InvalidCastException(Key);
         }
@@ -216,7 +223,11 @@ namespace DocsMarshal.Entities
             if (Field.FieldType != Type)
                 throw new InvalidCastException(string.Format("Field with ExternalId {0} is not of type {1}", ExternalId, Type.ToString()));
             else
+            {
+                if (string.IsNullOrWhiteSpace(Field.DbFieldName))
+                    Field.DbFieldName = GetDbFieldCodeByFieldId(Field.Id);
                 return Field;
+            }
         }
 
         private Field GetField_By_Id(int Id)
@@ -241,30 +252,58 @@ namespace DocsMarshal.Entities
         public object GetFieldValue_By_ExternalId(string ExternalId)
         {
             var Field = GetField_By_ExternalId(ExternalId);
+            if (Field.GenericValue != null)
+            {
+                return Field.GenericValue;
+            }
             return GetValueFromDictionary(Field.DbFieldName);
         }
 
         public bool? GetBoolValue_By_ExternalId(string externalId)
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.Boolean);
+            if (Field.GenericValue != null)
+            {
+                bool num;
+                if (bool.TryParse(Field.GenericValue.ToString(), out num))
+                    return num;
+            }
             return GetBoolValueFromDictionary(Field.DbFieldName);
         }
 
         public DateTime? GetDateTimeValue_By_ExternalId(string externalId)
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.DateTime);
+            if (Field.GenericValue != null)
+            {
+                DateTime num;
+                if (DateTime.TryParse(Field.GenericValue.ToString(), out num))
+                    return num;
+            }
             return GetDateTimeValueFromDictionary(Field.DbFieldName);
         }
 
 		public Guid? GetStorageIdValue_By_ByteArrayFieldExternalId(string externalId)
         {
 			var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.ByteArray);
+            if (Field.GenericValue != null)
+            {
+                Guid num;
+                if (Guid.TryParse(Field.GenericValue.ToString(), out num))
+                    return num;
+            }
 			return GetGuidValueFromDictionary(Field.DbFieldName);
         }
 
         public DateTime? GetDateValue_By_ExternalId(string externalId)
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.Date);
+            if (Field.GenericValue != null)
+            {
+                DateTime num;
+                if (DateTime.TryParse(Field.GenericValue.ToString(), out num))
+                    return num;
+            }
             var Value = GetDateTimeValueFromDictionary(Field.DbFieldName);
             if (Value.HasValue)
                 return Value.Value.Date;
@@ -275,18 +314,36 @@ namespace DocsMarshal.Entities
         public decimal? GetDecimalValue_By_ExternalId(string externalId)
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.Decimal);
+            if (Field.GenericValue != null)
+            {
+                decimal num;
+                if (decimal.TryParse(Field.GenericValue.ToString(), out num))
+                    return num;
+            }
             return GetDecimalValueFromDictionary(Field.DbFieldName);
         }
 
         public Guid? GetGuidValue_By_ExternalId(string externalId)
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.Guid);
+            if (Field.GenericValue != null)
+            {
+                Guid num;
+                if (Guid.TryParse(Field.GenericValue.ToString(), out num))
+                    return num;
+            }
             return GetGuidValueFromDictionary(Field.DbFieldName);
         }
 
         public int? GetIntValue_By_ExternalId(string externalId)
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.Int);
+            if (Field.GenericValue != null) 
+            {
+                int num;
+                if (int.TryParse(Field.GenericValue.ToString(), out num))
+                    return num;
+            }
             return GetIntValueFromDictionary(Field.DbFieldName);
         }
 
@@ -307,21 +364,32 @@ namespace DocsMarshal.Entities
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.MultiLanguage);
             var Language = GetLangage_By_LanguageCode(lang);
-			var FieldCode = string.Format("{0}_{1}", Field.DbFieldName, Language.Id); 
-                                  
-            return GetStringValueFromDictionary(FieldCode);
+            if (Field == null || Language == null) throw new Exception("Field or Language not found");
+            var FieldCode = string.Format("{0}_{1}", Field.DbFieldName, Language.Id);
+
+            var ritorno = GetStringValueFromDictionary(FieldCode);
+            if (!string.IsNullOrWhiteSpace(ritorno)) return ritorno;
+            return GetMultilanguageFieldValueById(Field.Id, Language.Id);
         }
 
         public string GetMultilanguageFieldValueById(int id, int languegeId)
         {
             var Field = GetField_By_Id(id, Enums.EFieldType.MultiLanguage);
             var FieldCode = GetDbFieldCodeByFieldIdLanguageId(id, languegeId);
+            if (Field.GenericValue != null)
+            {
+                var fieldContent =JsonConvert.DeserializeObject<List<DocsMarshal.Entities.FieldValueLang>>(Field.GenericValue.ToString());
+                var fielfValue = fieldContent.FirstOrDefault(x => x.Id == languegeId);
+                if (fielfValue != null && !string.IsNullOrWhiteSpace(fielfValue.Value)) return fielfValue.Value;
+            }
             return GetStringValueFromDictionary(FieldCode);
         }
 
         public string GetStringValue_By_ExternalId(string externalId)
         {
             var Field = GetField_By_ExternalId(externalId, Enums.EFieldType.String);
+            if (Field.GenericValue != null)
+                return Field.GenericValue.ToString();
             return GetStringValueFromDictionary(Field.DbFieldName);
         }
 
