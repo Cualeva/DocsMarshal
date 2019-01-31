@@ -56,13 +56,11 @@ namespace DocsMarshal.Orchestrator
                     }
                     else
                         SessionId = string.Empty;
-                    
-
                    return ritO;
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    return new Entities.LogonToken { LoggedIn = false, LogOnError = ex.Message };
                 }
             }
 

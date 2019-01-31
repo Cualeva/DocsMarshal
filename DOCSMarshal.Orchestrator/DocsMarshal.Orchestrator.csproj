@@ -11,7 +11,6 @@
     <AssemblyName>DOCSMarshal.Orchestrator</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
-    <ReleaseVersion>1.11</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +20,7 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -43,22 +43,17 @@
     <Folder Include="Managers\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DOCSMarshal.Interfaces\DOCSMarshal.Interfaces.csproj">
-      <Project>{E703B6F8-A538-40A4-8242-92C150537664}</Project>
-      <Name>DocsMarshal.Interfaces</Name>
-    </ProjectReference>
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DOCSMarshal.Entities\DOCSMarshal.Entities.csproj">
       <Project>{5D5E0ED5-C2EF-470F-8F4D-DBFB747BB543}</Project>
       <Name>DocsMarshal.Entities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\ilCave\Isuledda.git\packages\Newtonsoft.Json.11.0.2\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\DOCSMarshal.Interfaces\DOCSMarshal.Interfaces.csproj">
+      <Project>{E703B6F8-A538-40A4-8242-92C150537664}</Project>
+      <Name>DocsMarshal.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.121934\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.121934\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
