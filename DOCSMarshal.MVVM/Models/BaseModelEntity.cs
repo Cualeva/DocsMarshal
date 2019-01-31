@@ -95,6 +95,7 @@ namespace DocsMarshal.MVVM.Models
         public DocsMarshal.Entities.ProfileForInsert ToProfileForInsert(bool raiseWorkflowEvents)
         {
             var ritorno = new DocsMarshal.Entities.ProfileForInsert();
+            ritorno.ClassTypeExternalID = ClassTypeExternalId;
             AddStdFieldToIProfileFor(ritorno, raiseWorkflowEvents);
             return ritorno;
         }
