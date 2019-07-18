@@ -53,6 +53,8 @@
     <Compile Include="ProfileUpdated.cs" />
     <Compile Include="ProfileDeleted.cs" />
     <Compile Include="ProfileForBase.cs" />
+    <Compile Include="SearchIntParameter.cs" />
+    <Compile Include="Enums\ESearchIntCondition.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

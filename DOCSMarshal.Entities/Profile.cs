@@ -87,8 +87,10 @@ namespace DocsMarshal.Entities
             
             this.ProfileAsDictionary = Result.Profiles[i];
             this.Languages = Result.Languages;
-
+            this.UserId = GetIntValueFromDictionary("UserId").Value;
             this.ObjectId = GetGuidValueFromDictionary("ObjectId").Value;
+            this.InsertDt = GetDateTimeValueFromDictionary("InsertDt").Value;
+            this.LastUpdate = GetDateTimeValueFromDictionary("LastUpdate").Value;
             this.DomainId = GetIntValueFromDictionary("DomainId").Value;
             this.Domain_ExternalId = GetStringValueFromDictionary("Domain_ExternalId");
             this.Domain = GetStringValueFromDictionary("Domain");
