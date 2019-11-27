@@ -38,6 +38,7 @@
     <Compile Include="Managers\ProfileArchiveManager.cs" />
     <Compile Include="Managers\PortalManager.cs" />
     <Compile Include="Managers\UrlsManager.cs" />
+    <Compile Include="Managers\WorkflowManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Managers\" />

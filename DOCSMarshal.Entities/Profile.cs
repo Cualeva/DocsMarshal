@@ -207,14 +207,19 @@ namespace DocsMarshal.Entities
                 return Value.ToString();
         }
 
-        private Field GetField_By_ExternalId(string ExternalId)
+        public Field GetField_By_ExternalId(string ExternalId)
+        {
+            return GetField_By_ExternalId(ExternalId, true);
+        }
+
+        public Field GetField_By_ExternalId(string ExternalId, bool throwExceptionIfNotExist)
         {
             if (string.IsNullOrWhiteSpace(ExternalId))
                 throw new ArgumentNullException("ExternalId");
             if (this.Fields == null)
                 throw new ArgumentNullException("Profile.Fields");
             var Field = Fields.FirstOrDefault(x => string.Equals(ExternalId, x.ExternalId, StringComparison.CurrentCultureIgnoreCase));
-            if (Field == null)
+            if (Field == null && throwExceptionIfNotExist)
                 throw new KeyNotFoundException(string.Format("Field with ExternalId \"{0}\"", ExternalId));
             return Field;
         }

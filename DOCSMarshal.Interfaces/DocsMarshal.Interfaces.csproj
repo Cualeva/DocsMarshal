@@ -36,11 +36,13 @@
     <Compile Include="Managers\Profile\IProfileArchiveManager.cs" />
     <Compile Include="Managers\Portal\IPortalManager.cs" />
     <Compile Include="Managers\Portal\IUrlsManager.cs" />
+    <Compile Include="Managers\Workflow\IWorkflowManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Managers\" />
     <Folder Include="Managers\Profile\" />
     <Folder Include="Managers\Portal\" />
+    <Folder Include="Managers\Workflow\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

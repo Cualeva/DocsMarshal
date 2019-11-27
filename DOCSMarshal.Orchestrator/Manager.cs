@@ -6,6 +6,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
+using DocsMarshal.Interfaces.Managers.Workflow;
 
 namespace DocsMarshal.Orchestrator
 {
@@ -26,15 +27,19 @@ namespace DocsMarshal.Orchestrator
             DocsMarshalUrl = docsmarshalUrl;
             Profile = new Managers.ProfileManager(this);
             Portal = new Managers.PortalManager(this);
+            Workflow = new Managers.WorkflowManager(this);
         }
 
         public IProfileManager Profile { get; private set; }
         public IPortalManager Portal { get; private set; }
+        public IWorkflowManager Workflow { get; private set; }
+
 
         public void Dispose()
         {
             if (Profile != null) { Profile.Dispose(); Profile = null; };
             if (Portal != null) { Portal.Dispose(); Portal = null; };
+            if (Workflow != null) { Workflow.Dispose(); Workflow = null; };
         }
 
         public async Task<Entities.LogonToken> Logon(string username, string password, string softwareName)

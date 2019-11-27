@@ -55,6 +55,14 @@
     <Compile Include="ProfileForBase.cs" />
     <Compile Include="SearchIntParameter.cs" />
     <Compile Include="Enums\ESearchIntCondition.cs" />
+    <Compile Include="GetActiveTasksResponse.cs" />
+    <Compile Include="DmTask.cs" />
+    <Compile Include="Enums\ETaskState.cs" />
+    <Compile Include="GetVariablesByIdTaskResponse.cs" />
+    <Compile Include="DmTaskVariable.cs" />
+    <Compile Include="Enums\EPresenterType.cs" />
+    <Compile Include="BaseReturnEntity.cs" />
+    <Compile Include="Parameter.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

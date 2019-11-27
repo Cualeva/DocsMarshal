@@ -54,7 +54,7 @@ namespace DocsMarshal.Entities.Interfaces
 
         Dictionary<string, string> GetMultilanguageFieldValuesByExternalId(string externalId);
         Dictionary<int, string> GetMultilanguageFieldValuesById(int id);
-
+        Field GetField_By_ExternalId(string ExternalId, bool throwExceptionIfNotExist);
         //List<KeyValuePair<string, string>> ToKeyValuePairs();
         //List<KeyValuePair<string, string>> ToKeyValuePairs(int? languageId);
         //List<KeyValuePair<string, string>> ToKeyValuePairs(int? languageId, bool useExternalIdIfExist);
