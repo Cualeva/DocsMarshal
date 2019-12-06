@@ -1,0 +1,134 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETPortable,Version=v4.5,Profile=Profile111": {
+      "Newtonsoft.Json/12.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll": {}
+        }
+      },
+      "DocsMarshal.Entities/1.0.0": {
+        "type": "project",
+        "framework": ".NETPortable,Version=v4.5,Profile=Profile111",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.1"
+        }
+      },
+      "DocsMarshal.Interfaces/1.0.0": {
+        "type": "project",
+        "framework": ".NETPortable,Version=v4.5,Profile=Profile111",
+        "dependencies": {
+          "DocsMarshal.Entities": "1.0.0"
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Newtonsoft.Json/12.0.1": {
+      "sha512": "pBR3wCgYWZGiaZDYP+HHYnalVnPJlpP1q55qvVb+adrDHmFMDc1NAKio61xTwftK3Pw5h7TZJPJEEVMd6ty8rg==",
+      "type": "package",
+      "path": "newtonsoft.json/12.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.pdb",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.pdb",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.pdb",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.pdb",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.pdb",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.pdb",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.pdb",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.pdb",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.pdb",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec"
+      ]
+    },
+    "DocsMarshal.Entities/1.0.0": {
+      "type": "project",
+      "path": "../DOCSMarshal.Entities/project.json",
+      "msbuildProject": "../DOCSMarshal.Entities/DocsMarshal.Entities.csproj"
+    },
+    "DocsMarshal.Interfaces/1.0.0": {
+      "type": "project",
+      "path": "../DOCSMarshal.Interfaces/project.json",
+      "msbuildProject": "../DOCSMarshal.Interfaces/DocsMarshal.Interfaces.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "": [
+      "Newtonsoft.Json >= 12.0.1"
+    ],
+    ".NETPortable,Version=v4.5,Profile=Profile111": []
+  },
+  "packageFolders": {
+    "C:\\Users\\pietr\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+  },
+  "project": {
+    "restore": {
+      "projectUniqueName": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\DocsMarshal.Orchestrator.csproj",
+      "projectName": "DocsMarshal.Orchestrator",
+      "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\DocsMarshal.Orchestrator.csproj",
+      "projectJsonPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\project.json",
+      "packagesPath": "C:\\Users\\pietr\\.nuget\\packages\\",
+      "outputPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\obj\\",
+      "projectStyle": "ProjectJson",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\pietr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "portable45-net45+win8+wpa81": {
+          "projectReferences": {
+            "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\DocsMarshal.Entities.csproj": {
+              "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\DocsMarshal.Entities.csproj"
+            },
+            "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Interfaces\\DocsMarshal.Interfaces.csproj": {
+              "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Interfaces\\DocsMarshal.Interfaces.csproj"
+            }
+          }
+        }
+      }
+    },
+    "dependencies": {
+      "Newtonsoft.Json": "[12.0.1, )"
+    },
+    "frameworks": {
+      "portable45-net45+win8+wpa81": {}
+    }
+  }
+}

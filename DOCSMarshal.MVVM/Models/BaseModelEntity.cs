@@ -51,7 +51,7 @@ namespace DocsMarshal.MVVM.Models
         public DateTime InsertDt { get; set; }
         public DateTime LastUpdate { get; set; }
         public string LanguageCode { get; set; }
-
+        public string ProtocolCode { get; set; }
 
         public void LoadStandardFieldFromProfileSearchResult(DocsMarshal.Entities.Interfaces.IProfile profile)
         {
@@ -65,7 +65,8 @@ namespace DocsMarshal.MVVM.Models
             this.LastUpdate = profile.LastUpdate;
             this.InsertDt = profile.InsertDt;
             this.LanguageCode = profile.LanguageCode;
-        }
+            this.ProtocolCode = profile.ProtocolCode;
+       }
 
 
         internal void LoadStandardFieldFromProfileSearchResult(int i, ProfileSearchResult risultato)

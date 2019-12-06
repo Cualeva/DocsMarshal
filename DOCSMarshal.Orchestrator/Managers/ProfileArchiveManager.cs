@@ -78,9 +78,6 @@ namespace DocsMarshal.Orchestrator.Managers
 
         public async Task<ProfileInserted> InsertAsync(DocsMarshal.Entities.ProfileForInsert profileForInsert)
         {
-            
-
-
             try
             {
                 // controllo che il profilo non sia null

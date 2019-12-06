@@ -68,10 +68,6 @@ namespace DocsMarshal.Orchestrator
                     return new Entities.LogonToken { LoggedIn = false, LogOnError = ex.Message };
                 }
             }
-
-            throw new NotImplementedException();
-
-     
         }
 
         public bool Logon(string staticSessionId, string softwareName)
@@ -80,8 +76,13 @@ namespace DocsMarshal.Orchestrator
             SessionId = staticSessionId;
             SoftwareName = softwareName;
             return true;
+        }
 
-           
+        public bool Logoff()
+        {
+            SessionId = null;
+            SoftwareName = null;
+            return true;
         }
     }
 }

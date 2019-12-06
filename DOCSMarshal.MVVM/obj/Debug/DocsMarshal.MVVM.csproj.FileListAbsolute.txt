@@ -1,0 +1,6 @@
+C:\Projects\Git\Cualeva\DocsMarshal.git\DOCSMarshal.MVVM\bin\Debug\DOCSMarshal.MVVM.dll
+C:\Projects\Git\Cualeva\DocsMarshal.git\DOCSMarshal.MVVM\bin\Debug\DOCSMarshal.MVVM.pdb
+C:\Projects\Git\Cualeva\DocsMarshal.git\DOCSMarshal.MVVM\obj\Debug\DocsMarshal.MVVM.csprojAssemblyReference.cache
+C:\Projects\Git\Cualeva\DocsMarshal.git\DOCSMarshal.MVVM\obj\Debug\XamlC.stamp
+C:\Projects\Git\Cualeva\DocsMarshal.git\DOCSMarshal.MVVM\obj\Debug\DOCSMarshal.MVVM.dll
+C:\Projects\Git\Cualeva\DocsMarshal.git\DOCSMarshal.MVVM\obj\Debug\DOCSMarshal.MVVM.pdb

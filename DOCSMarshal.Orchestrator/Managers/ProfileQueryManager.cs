@@ -34,10 +34,12 @@ namespace DocsMarshal.Orchestrator.Managers
                     var response = await client.PostAsync(query.SearchUrl(Orchestrator.DocsMarshalUrl), new StringContent(serializedItem, Encoding.UTF8, "application/json"));
                     string rit = response.Content.ReadAsStringAsync().Result;
                     var ritO = JsonConvert.DeserializeObject<Root>(rit);
-                    if (ritO != null && ritO.Result != null)
-                    {
-                            if (ritO.Result.Profiles == null) ritO.Result.Profiles = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>>();
-                    }
+                    if (ritO == null || ritO.Result == null)
+                        throw new Exception("Profile Search result is null");
+                    if (ritO.Result.HasError)
+                        throw new Exception(ritO.Result.Error);
+                    if (ritO.Result.Profiles == null)
+                        throw new Exception("Profile Search Profiles result is null");
                     return ritO.Result;
                 }
                 catch (Exception ex)

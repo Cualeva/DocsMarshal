@@ -11,6 +11,7 @@ namespace DocsMarshal.Interfaces
         DocsMarshal.Interfaces.Managers.Workflow.IWorkflowManager Workflow { get; }
         Task<DocsMarshal.Entities.LogonToken> Logon(string username, string password, string softwareName);
         bool Logon(string staticSessionId, string softwareName);
+        bool Logoff();
     }
 
 }

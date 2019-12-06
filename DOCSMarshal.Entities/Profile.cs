@@ -100,6 +100,9 @@ namespace DocsMarshal.Entities
             this.ObjectStateId = GetIntValueFromDictionary("ObjectStateId").Value;
             this.ObjectState_ExternalId = GetStringValueFromDictionary("ObjectState_ExternalId");
             this.ObjectState = GetStringValueFromDictionary("ObjectState");
+            this.ProtocolCode = GetStringValueFromDictionary("ProtocolCode");
+            this.ProtocolNumber = GetIntValueFromDictionary("ProtocolNumber");
+            this.ProtocolYear = GetIntValueFromDictionary("ProtocolYear");
             if (ProfileAsDictionary != null)
                 if (ProfileAsDictionary.ContainsKey("LanguageId"))
                 {
