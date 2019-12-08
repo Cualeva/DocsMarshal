@@ -14,6 +14,7 @@ namespace DocsMarshal.Entities
         public string domainExternalId { get; set; }
         public string classTypeExternalId { get; set; }
         public string objectStatusExternalId { get; set; }
+        public List<string> objectStatusExternalIds { get; set; }
         public string fieldsToSelect { get; set; }
         public List<SearchParameter> parameters { get; set; }
         public ProfileSearch()

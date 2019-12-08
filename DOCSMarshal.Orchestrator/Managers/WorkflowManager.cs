@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -150,6 +151,28 @@ namespace DocsMarshal.Orchestrator.Managers
                     string rit = response.Content.ReadAsStringAsync().Result;
                     var ritO = JsonConvert.DeserializeObject<RootBase>(rit);
                     return ritO.Result;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        public async Task<List<Outcome>> GetOutcomesByIdTask(Guid idTask)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    string url = string.Format("{0}/Workflow/GetTaskOutcomes", Orchestrator.DocsMarshalUrl);
+                    var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, idTask = idTask });
+                    var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                    string rit = await response.Content.ReadAsStringAsync();
+                    var ritO = JsonConvert.DeserializeObject<BaseJsonResult<List<Outcome>>>(rit);
+                    if (ritO.Error)
+                        throw new Exception(ritO.ErrorDescription);
+                    return ritO.Data;
                 }
                 catch (Exception ex)
                 {
