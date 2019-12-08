@@ -11,5 +11,6 @@ namespace DocsMarshal.Interfaces.Managers.Workflow
         Task<Entities.BaseReturnEntity> TaskComplete(string idTask, string outcome);
         Task<Entities.BaseReturnEntity> TaskTakeInChargeByIdTask(string idTask);
         Task<Entities.BaseReturnEntity> TaskUndoTakeInChargeByIdTask(string idTask);
+        IWorkflowEvents WfEvents { get; }
     }
 }

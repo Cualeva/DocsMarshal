@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BaseJsonResult.cs" />
     <Compile Include="Interfaces\IProfile.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Enums\EPresenterType.cs" />
     <Compile Include="BaseReturnEntity.cs" />
     <Compile Include="Parameter.cs" />
+    <Compile Include="SourceDataResult.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

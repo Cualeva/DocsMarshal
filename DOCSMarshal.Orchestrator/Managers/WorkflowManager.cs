@@ -11,17 +11,23 @@ namespace DocsMarshal.Orchestrator.Managers
     public class WorkflowManager : DocsMarshal.Interfaces.Managers.Workflow.IWorkflowManager
     {
         private Manager Orchestrator = null;
+        public Interfaces.Managers.Workflow.IWorkflowEvents WfEvents { get; private set; }
 
         public WorkflowManager(DocsMarshal.Orchestrator.Manager manager)
         {
             Orchestrator = manager;
+            WfEvents = new WorkflowEventsManager(Orchestrator);
         }
-
 
         
         public void Dispose()
         {
             if (Orchestrator != null) Orchestrator = null;
+            if(WfEvents != null)
+            {
+                WfEvents.Dispose();
+                WfEvents = null;
+            }
         }
 
         public async Task<GetActiveTasksResponse> GetActiveTasks()
