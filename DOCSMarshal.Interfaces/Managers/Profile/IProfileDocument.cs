@@ -7,7 +7,7 @@ namespace DocsMarshal.Interfaces.Managers.Profile
     {
         DocsMarshal.Entities.ProfileDocumentResponse GetDefaultDocument(Guid objectId);
         Task<DocsMarshal.Entities.ProfileDocumentResponse> GetDefaultDocumentAsync (Guid objectId);
-        DocsMarshal.Entities.ProfileDocumentResponse GetDocumentByFieldId(Guid objectId, int fieldId);
-        DocsMarshal.Entities.ProfileDocumentResponse GetDocumentByExternalFieldId(Guid objectId, string externalId);
+        Task<DocsMarshal.Entities.FileValue> GetDocumentByFieldId(Guid objectId, int fieldId);
+        Task<DocsMarshal.Entities.FileValue> GetDocumentByExternalFieldId(Guid objectId, string externalId);
     }
 }

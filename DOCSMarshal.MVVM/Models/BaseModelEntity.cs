@@ -104,6 +104,7 @@ namespace DocsMarshal.MVVM.Models
         public DocsMarshal.Entities.ProfileForUpdate ToProfileForUpdate(bool raiseWorkflowEvents)
         {
             var ritorno = new DocsMarshal.Entities.ProfileForUpdate();
+            ritorno.ObjectId = Objectid;
             AddStdFieldToIProfileFor(ritorno, raiseWorkflowEvents);
             return ritorno;
         }

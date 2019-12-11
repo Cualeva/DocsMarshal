@@ -37,18 +37,27 @@ namespace DocsMarshal.Orchestrator.Managers
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsync(defaultUrl, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                string rit = response.Content.ReadAsStringAsync().Result;
+                string rit = await response.Content.ReadAsStringAsync();
                 var ritO = JsonConvert.DeserializeObject<RootFile>(rit);
                 return ritO.result;
             }
         }
 
-        public ProfileDocumentResponse GetDocumentByExternalFieldId(Guid objectId, string externalId)
+        public async Task<FileValue> GetDocumentByExternalFieldId(Guid objectId, string externalId)
         {
-            throw new NotImplementedException();
+            if (Guid.Empty == objectId) throw new ArgumentNullException("ObjectId cannot be empty");
+            string defaultUrl = string.Format("{0}/{1}", Orchestrator.DocsMarshalUrl, "/Profile/GetDocumentByFieldExternalId");
+            var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, objectID = objectId, fieldExternalId = externalId });
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsync(defaultUrl, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                string rit = await response.Content.ReadAsStringAsync();
+                var ritO = JsonConvert.DeserializeObject<RootFile>(rit);
+                throw new NotImplementedException();
+            }
         }
 
-        public ProfileDocumentResponse GetDocumentByFieldId(Guid DmObjectId, int fieldId)
+        public Task<FileValue> GetDocumentByFieldId(Guid DmObjectId, int fieldId)
         {
             throw new NotImplementedException();
         }

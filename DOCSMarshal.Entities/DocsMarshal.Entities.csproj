@@ -28,6 +28,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BaseJsonResult.cs" />
+    <Compile Include="FileValue.cs" />
     <Compile Include="Interfaces\IProfile.cs" />
     <Compile Include="Outcome.cs" />
     <Compile Include="Profile.cs" />
