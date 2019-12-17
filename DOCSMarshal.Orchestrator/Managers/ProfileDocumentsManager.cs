@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +18,10 @@ namespace DocsMarshal.Orchestrator.Managers
 
         }
 
-
         public void Dispose()
         {
             if (Orchestrator != null) Orchestrator = null;
         }
-
 
         public ProfileDocumentResponse GetDefaultDocument(Guid objectId)
         {
@@ -45,16 +44,38 @@ namespace DocsMarshal.Orchestrator.Managers
 
         public async Task<FileValue> GetDocumentByExternalFieldId(Guid objectId, string externalId)
         {
-            if (Guid.Empty == objectId) throw new ArgumentNullException("ObjectId cannot be empty");
-            string defaultUrl = string.Format("{0}/{1}", Orchestrator.DocsMarshalUrl, "/Profile/GetDocumentByFieldExternalId");
-            var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, objectID = objectId, fieldExternalId = externalId });
+            if (Guid.Empty == objectId)
+                throw new ArgumentNullException("ObjectId cannot be empty");
+            var url = $"{Orchestrator.DocsMarshalUrl}/Profile/GetDocumentByFieldExternalId";
+            var serializedItem = JsonConvert.SerializeObject(new
+            {
+                SessionId = Orchestrator.SessionId,
+                ObjectId = objectId,
+                FieldExternalId = externalId });
             using (var client = new HttpClient())
             {
-                var response = await client.PostAsync(defaultUrl, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                string rit = await response.Content.ReadAsStringAsync();
-                var ritO = JsonConvert.DeserializeObject<RootFile>(rit);
-                throw new NotImplementedException();
+                var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                return await GetFileFromResponse(response);
             }
+        }
+
+        private async Task<FileValue> GetFileFromResponse(HttpResponseMessage response)
+        {
+            var contentDisposition = response.Headers.GetValues("content-disposition").FirstOrDefault();
+            var fileName = "file";
+            if (!String.IsNullOrEmpty(contentDisposition))
+            {
+                var lookFor = "filename=";
+                var index = contentDisposition.IndexOf(lookFor, StringComparison.CurrentCultureIgnoreCase);
+                if (index >= 0)
+                    fileName = contentDisposition.Substring(index + lookFor.Length);
+            }
+            var content = await response.Content.ReadAsByteArrayAsync();
+            return new FileValue
+            {
+                FileName = fileName,
+                Content = content
+            };
         }
 
         public Task<FileValue> GetDocumentByFieldId(Guid DmObjectId, int fieldId)

@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Globalization;
+
 namespace DocsMarshal.Entities
 {
     public class FieldValue
     {
+        protected static readonly CultureInfo serializationCulture = new CultureInfo("en-US");
+
         public FieldValue()
         {
             
@@ -35,6 +39,10 @@ namespace DocsMarshal.Entities
                 Value = string.Empty;
             ValueCultureInfoName = valueCultureInfoName;
         }
+
+        public FieldValueInt(string externalId, int? value) : this(externalId, value, null)
+        {
+        }
     }
 
     public class FieldValueString : FieldValue
@@ -54,10 +62,13 @@ namespace DocsMarshal.Entities
             ValueType = Enums.EFieldType.Decimal;
             ExternalID = externalId;
             if (value.HasValue)
-                Value = value.Value.ToString();
+                Value = value.Value.ToString(serializationCulture);
             else
                 Value = string.Empty;
-            ValueCultureInfoName = valueCultureInfoName;
+        }
+
+        public FieldValueDecimal(string externalId, decimal? value) : this(externalId, value, null)
+        {
         }
     }
 
@@ -68,10 +79,14 @@ namespace DocsMarshal.Entities
             ValueType = Enums.EFieldType.Date;
             ExternalID = externalId;
             if (value.HasValue)
-                Value = value.Value.ToString();
+                Value = value.Value.ToString("yyyy-MM-dd HH:mm:ss");
             else
                 Value = string.Empty;
             ValueFormat = valueFormat;
+        }
+
+        public FieldValueDate(string externalId, DateTime? value) : this(externalId, value, null)
+        {
         }
     }
 
