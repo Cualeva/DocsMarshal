@@ -30,7 +30,7 @@ namespace DocsMarshal.Orchestrator.Managers
                 try
                 {
                     if (string.IsNullOrWhiteSpace(query.sessionID)) query.sessionID = Orchestrator.SessionId;
-                    var serializedItem = JsonConvert.SerializeObject(query);
+                    var serializedItem = JsonConvert.SerializeObject(query, new JsonSerializerSettings { DateFormatString = "yyyy-MM-dd HH:mm:ss" });
                     var response = await client.PostAsync(query.SearchUrl(Orchestrator.DocsMarshalUrl), new StringContent(serializedItem, Encoding.UTF8, "application/json"));
                     string rit = response.Content.ReadAsStringAsync().Result;
                     var ritO = JsonConvert.DeserializeObject<Root>(rit);

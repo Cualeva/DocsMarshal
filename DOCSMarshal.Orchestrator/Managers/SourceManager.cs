@@ -27,34 +27,27 @@ namespace DocsMarshal.Orchestrator.Managers
         {
             using (var client = new HttpClient())
             {
-                try
+                if (String.IsNullOrWhiteSpace(externalId))
+                    throw new ArgumentNullException(nameof(externalId));
+                string url = string.Format("{0}/Sources/GetDataBySourceExternalId", Orchestrator.DocsMarshalUrl);
+                var serializedItem = JsonConvert.SerializeObject(new
                 {
-                    if (String.IsNullOrWhiteSpace(externalId))
-                        throw new ArgumentNullException(nameof(externalId));
-                    string url = string.Format("{0}/Sources/GetDataBySourceExternalId", Orchestrator.DocsMarshalUrl);
-                    var serializedItem = JsonConvert.SerializeObject(new
-                    {
-                        SessionID = Orchestrator.SessionId,
-                        LoadDependencies = false,
-                        SourceExternalId = externalId,
-                        DomainExternalId = domainExternalId,
-                        LanguageId = languageId,
-                        ClassTypeExternalId = classtypeExternalId,
-                        ObjectStateExternalId = objectStateExternalId,
-                        Where = filters,
-                        Fields = fields
-                    });
-                    var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                    string rit = await response.Content.ReadAsStringAsync();
-                    var ritO = JsonConvert.DeserializeObject<SourceDataResult>(rit);
-                    if (ritO.Error)
-                        throw new Exception(ritO.ErrorDescription);
-                    return ritO;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
+                    SessionID = Orchestrator.SessionId,
+                    LoadDependencies = false,
+                    SourceExternalId = externalId,
+                    DomainExternalId = domainExternalId,
+                    LanguageId = languageId,
+                    ClassTypeExternalId = classtypeExternalId,
+                    ObjectStateExternalId = objectStateExternalId,
+                    Where = filters,
+                    Fields = fields
+                });
+                var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                string rit = await response.Content.ReadAsStringAsync();
+                var ritO = JsonConvert.DeserializeObject<SourceDataResult>(rit);
+                if (ritO.Error)
+                    throw new Exception(ritO.ErrorDescription);
+                return ritO;
             }
         }
     }

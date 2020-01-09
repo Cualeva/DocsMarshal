@@ -28,6 +28,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BaseJsonResult.cs" />
+    <Compile Include="Enums\ESearchDateCondition.cs" />
     <Compile Include="FileValue.cs" />
     <Compile Include="Interfaces\IProfile.cs" />
     <Compile Include="Outcome.cs" />
@@ -40,6 +41,7 @@
     <Compile Include="Field.cs" />
     <Compile Include="Languages.cs" />
     <Compile Include="ProfileSearch.cs" />
+    <Compile Include="SearchDateParameter.cs" />
     <Compile Include="SearchParameter.cs" />
     <Compile Include="SearchGuidParameter.cs" />
     <Compile Include="OrderByParameter.cs" />
