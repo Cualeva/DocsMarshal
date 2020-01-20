@@ -32,7 +32,7 @@ namespace DocsMarshal.Orchestrator.Managers
                     if (string.IsNullOrWhiteSpace(query.sessionID)) query.sessionID = Orchestrator.SessionId;
                     var serializedItem = JsonConvert.SerializeObject(query, new JsonSerializerSettings { DateFormatString = "yyyy-MM-dd HH:mm:ss" });
                     var response = await client.PostAsync(query.SearchUrl(Orchestrator.DocsMarshalUrl), new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                    string rit = response.Content.ReadAsStringAsync().Result;
+                    string rit = await response.Content.ReadAsStringAsync();
                     var ritO = JsonConvert.DeserializeObject<Root>(rit);
                     if (ritO == null || ritO.Result == null)
                         throw new Exception("Profile Search result is null");

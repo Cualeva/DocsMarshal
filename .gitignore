@@ -3,11 +3,13 @@
 ################################################################################
 
 /packages
-/DOCSMarshal.Orchestrator/bin/Debug
-/DOCSMarshal.Orchestrator/obj/Debug
-/DOCSMarshal.Interfaces/bin/Debug
-/DOCSMarshal.Interfaces/obj/Debug
-/DOCSMarshal.Entities/bin/Debug
-/DOCSMarshal.Entities/obj/Debug
 /.vs/DOCSMarshal/v14
 /.vs
+/DOCSMarshal.Entities/bin
+/DOCSMarshal.Entities/obj
+/DOCSMarshal.Interfaces/bin
+/DOCSMarshal.Interfaces/obj
+/DOCSMarshal.MVVM/bin
+/DOCSMarshal.MVVM/obj
+/DOCSMarshal.Orchestrator/bin
+/DOCSMarshal.Orchestrator/obj

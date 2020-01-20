@@ -63,7 +63,7 @@ namespace DocsMarshal.Orchestrator.Managers
                     string url = string.Format("{0}/DMProfile/Delete", Orchestrator.DocsMarshalUrl);
                     var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, ObjectId = objectId });
                     var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                    string rit = response.Content.ReadAsStringAsync().Result;
+                    string rit = await response.Content.ReadAsStringAsync();
                     var ritO = await Task.Run(() => JsonConvert.DeserializeAnonymousType(rit, new { Result = new Entities.ProfileDeleted() }).Result);
                     return ritO;
                 }
@@ -87,7 +87,7 @@ namespace DocsMarshal.Orchestrator.Managers
                     string url =   string.Format("{0}/DMProfile/Insert", Orchestrator.DocsMarshalUrl);
                     var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, ProfileForInsert = profileForInsert });
                     var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                    string rit = response.Content.ReadAsStringAsync().Result;
+                    string rit = await response.Content.ReadAsStringAsync();
                     var ritO = await Task.Run(() => JsonConvert.DeserializeAnonymousType(rit, new { Result = new Entities.ProfileInserted() }).Result);
                     return ritO;
                 }
@@ -115,7 +115,7 @@ namespace DocsMarshal.Orchestrator.Managers
                     string url = string.Format("{0}/DMProfile/Update", Orchestrator.DocsMarshalUrl);
                     var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, ProfileForUpdate = profileForUpdate, ObjectId= profileForUpdate.ObjectId });
                     var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                    string rit = response.Content.ReadAsStringAsync().Result;
+                    string rit = await response.Content.ReadAsStringAsync();
                     var ritO = await Task.Run(() => JsonConvert.DeserializeAnonymousType(rit, new { Result = new Entities.ProfileUpdated() }).Result);
                     return ritO;
                 }

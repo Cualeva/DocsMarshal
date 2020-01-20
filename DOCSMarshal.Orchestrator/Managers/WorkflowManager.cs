@@ -68,7 +68,16 @@ namespace DocsMarshal.Orchestrator.Managers
                     var ritO = JsonConvert.DeserializeObject<RootVariables>(rit);
                     if (ritO != null && ritO.Result != null)
                     {
-                        if (ritO.Result.Variables == null) ritO.Result.Variables = new System.Collections.Generic.List<DocsMarshal.Entities.DmTaskVariable>();
+                        if (ritO.Result.Variables == null)
+                            ritO.Result.Variables = new System.Collections.Generic.List<DocsMarshal.Entities.DmTaskVariable>();
+                        foreach(var variable in ritO.Result.Variables)
+                            if(variable.FieldType == Entities.Enums.EFieldType.Guid)
+                            {
+                                if (variable.DefaultValue is string defaultValueStr && Guid.TryParse(defaultValueStr, out Guid defaultValueGuid))
+                                    variable.DefaultValue = defaultValueGuid;
+                                if (variable.Value is string valueStr && Guid.TryParse(valueStr, out Guid valueGuid))
+                                    variable.Value = valueGuid;
+                            }
                     }
                     return ritO.Result;
                 }
