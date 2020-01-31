@@ -86,5 +86,33 @@ namespace DocsMarshal.Orchestrator
             SoftwareName = null;
             return true;
         }
+
+        internal async Task<T> PostAsync<T>(string endpoint, object data, bool localTime = true)
+        {
+            using (var client = new HttpClient())
+            {
+                try
+                {
+                    string url = string.Format("{0}{1}", DocsMarshalUrl, endpoint);
+                    var serializedItem = JsonConvert.SerializeObject(data, new JsonSerializerSettings { DateFormatString = "yyyy-MM-dd HH:mm:ss" });
+                    var responseHead = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+                    string responseBodyString = await responseHead.Content.ReadAsStringAsync();
+                    var parseOptions = new JsonSerializerSettings();
+                    if (localTime)
+                        parseOptions.DateTimeZoneHandling = DateTimeZoneHandling.Local;
+                    var responseBodyObj = await Task.Run(() => JsonConvert.DeserializeObject<T>(responseBodyString, parseOptions));
+                    return responseBodyObj;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        internal async Task<T> PostAsync<T>(string endpoint, object data, T instance)
+        {
+            return await PostAsync<T>(endpoint, data);
+        }
     }
 }

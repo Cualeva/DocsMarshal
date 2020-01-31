@@ -25,28 +25,15 @@ namespace DocsMarshal.Orchestrator.Managers
         public async Task<ProfileSearchResult> ExecuteAsync(ProfileSearch query)
         {
             if (query == null) throw new ArgumentNullException("query cannot be null");
-            using (var client = new HttpClient())
-            {
-                try
-                {
-                    if (string.IsNullOrWhiteSpace(query.sessionID)) query.sessionID = Orchestrator.SessionId;
-                    var serializedItem = JsonConvert.SerializeObject(query, new JsonSerializerSettings { DateFormatString = "yyyy-MM-dd HH:mm:ss" });
-                    var response = await client.PostAsync(query.SearchUrl(Orchestrator.DocsMarshalUrl), new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                    string rit = await response.Content.ReadAsStringAsync();
-                    var ritO = JsonConvert.DeserializeObject<Root>(rit);
-                    if (ritO == null || ritO.Result == null)
-                        throw new Exception("Profile Search result is null");
-                    if (ritO.Result.HasError)
-                        throw new Exception(ritO.Result.Error);
-                    if (ritO.Result.Profiles == null)
-                        throw new Exception("Profile Search Profiles result is null");
-                    return ritO.Result;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
+            if (string.IsNullOrWhiteSpace(query.sessionID)) query.sessionID = Orchestrator.SessionId;
+            var ritO = await Orchestrator.PostAsync<Root>("/DMSearch/Execute", query, false);
+            if (ritO == null || ritO.Result == null)
+                throw new Exception("Profile Search result is null");
+            if (ritO.Result.HasError)
+                throw new Exception(ritO.Result.Error);
+            if (ritO.Result.Profiles == null)
+                throw new Exception("Profile Search Profiles result is null");
+            return ritO.Result;
         }
 
         private class Root

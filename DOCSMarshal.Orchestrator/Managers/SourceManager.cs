@@ -25,30 +25,23 @@ namespace DocsMarshal.Orchestrator.Managers
 
         public async Task<SourceDataResult> GetDataResultByExternalId(string externalId, string domainExternalId, string classtypeExternalId, string objectStateExternalId, int? languageId, List<FieldValue> fields, List<SearchParameter> filters)
         {
-            using (var client = new HttpClient())
+            if (String.IsNullOrWhiteSpace(externalId))
+                throw new ArgumentNullException(nameof(externalId));
+            var rit = await Orchestrator.PostAsync<SourceDataResult>("/Sources/GetDataBySourceExternalId", new
             {
-                if (String.IsNullOrWhiteSpace(externalId))
-                    throw new ArgumentNullException(nameof(externalId));
-                string url = string.Format("{0}/Sources/GetDataBySourceExternalId", Orchestrator.DocsMarshalUrl);
-                var serializedItem = JsonConvert.SerializeObject(new
-                {
-                    SessionID = Orchestrator.SessionId,
-                    LoadDependencies = false,
-                    SourceExternalId = externalId,
-                    DomainExternalId = domainExternalId,
-                    LanguageId = languageId,
-                    ClassTypeExternalId = classtypeExternalId,
-                    ObjectStateExternalId = objectStateExternalId,
-                    Where = filters,
-                    Fields = fields
-                });
-                var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                string rit = await response.Content.ReadAsStringAsync();
-                var ritO = JsonConvert.DeserializeObject<SourceDataResult>(rit);
-                if (ritO.Error)
-                    throw new Exception(ritO.ErrorDescription);
-                return ritO;
-            }
+                SessionID = Orchestrator.SessionId,
+                LoadDependencies = false,
+                SourceExternalId = externalId,
+                DomainExternalId = domainExternalId,
+                LanguageId = languageId,
+                ClassTypeExternalId = classtypeExternalId,
+                ObjectStateExternalId = objectStateExternalId,
+                Where = filters,
+                Fields = fields
+            });
+            if (rit.Error)
+                throw new Exception(rit.ErrorDescription);
+            return rit;
         }
     }
 }

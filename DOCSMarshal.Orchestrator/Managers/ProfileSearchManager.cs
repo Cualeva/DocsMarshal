@@ -44,22 +44,10 @@ namespace DocsMarshal.Orchestrator.Managers
 
         public async Task<Entities.Profile> ById(Guid Id)
         {
-           CallById c = new CallById();
-            c.ObjectId = Id.ToString();
-            c.sessionID = Orchestrator.SessionId;
-            var serializedItem = JsonConvert.SerializeObject(c);
-            using (var client = new HttpClient())
-            {
-                var url = string.Format("{0}/DMSearch/GetProfileByObjectId", Orchestrator.DocsMarshalUrl);
-                var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
-                string rit = response.Content.ReadAsStringAsync().Result;
-                var ritO = JsonConvert.DeserializeAnonymousType(rit, new { result = new Root() }).result;
-                if (ritO == null || ritO.Profiles == null) return null;
-                var profilo = ritO.Profiles.FirstOrDefault();
-                // popolo il verrore "Dictionary interno"
-                return profilo;
-            }
-
+            var ritO = await Orchestrator.PostAsync("/DMSearch/GetProfileByObjectId", new { ObjectId = Id, sessionId = Orchestrator.SessionId }, new { result = new Root() });
+            if (ritO.result == null || ritO.result.Profiles == null) return null;
+            var profilo = ritO.result.Profiles.FirstOrDefault();
+            return profilo;
         }
 
         private class CampoMultiLingua
@@ -74,13 +62,6 @@ namespace DocsMarshal.Orchestrator.Managers
             public DocsMarshal.Entities.Profile[] Profiles { get; set; }
             public bool HasError { get; set; }
         }
-
-        private class CallById
-        {
-            public string sessionID { get; set; }
-            public string ObjectId { get; set; }
-        }
-
 
         public void Dispose()
         {
