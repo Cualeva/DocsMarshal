@@ -11,18 +11,18 @@
           "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll": {}
         }
       },
-      "DocsMarshal.Entities/1.0.0": {
+      "DOCSMarshal.Entities/1.0.0": {
         "type": "project",
         "framework": ".NETPortable,Version=v4.5,Profile=Profile111",
         "dependencies": {
           "Newtonsoft.Json": "12.0.1"
         }
       },
-      "DocsMarshal.Interfaces/1.0.0": {
+      "DOCSMarshal.Interfaces/1.0.0": {
         "type": "project",
         "framework": ".NETPortable,Version=v4.5,Profile=Profile111",
         "dependencies": {
-          "DocsMarshal.Entities": "1.0.0"
+          "DOCSMarshal.Entities": "1.0.0"
         }
       }
     }
@@ -67,15 +67,15 @@
         "newtonsoft.json.nuspec"
       ]
     },
-    "DocsMarshal.Entities/1.0.0": {
+    "DOCSMarshal.Entities/1.0.0": {
       "type": "project",
       "path": "../DOCSMarshal.Entities/project.json",
-      "msbuildProject": "../DOCSMarshal.Entities/DocsMarshal.Entities.csproj"
+      "msbuildProject": "../DOCSMarshal.Entities/DOCSMarshal.Entities.csproj"
     },
-    "DocsMarshal.Interfaces/1.0.0": {
+    "DOCSMarshal.Interfaces/1.0.0": {
       "type": "project",
       "path": "../DOCSMarshal.Interfaces/project.json",
-      "msbuildProject": "../DOCSMarshal.Interfaces/DocsMarshal.Interfaces.csproj"
+      "msbuildProject": "../DOCSMarshal.Interfaces/DOCSMarshal.Interfaces.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -90,9 +90,9 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\DocsMarshal.Orchestrator.csproj",
-      "projectName": "DocsMarshal.Orchestrator",
-      "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\DocsMarshal.Orchestrator.csproj",
+      "projectUniqueName": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\DOCSMarshal.Orchestrator.csproj",
+      "projectName": "DOCSMarshal.Orchestrator",
+      "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\DOCSMarshal.Orchestrator.csproj",
       "projectJsonPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\project.json",
       "packagesPath": "C:\\Users\\pietr\\.nuget\\packages\\",
       "outputPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Orchestrator\\obj\\",
@@ -118,11 +118,11 @@
       "frameworks": {
         "portable45-net45+win8+wpa81": {
           "projectReferences": {
-            "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\DocsMarshal.Entities.csproj": {
-              "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\DocsMarshal.Entities.csproj"
+            "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\DOCSMarshal.Entities.csproj": {
+              "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\DOCSMarshal.Entities.csproj"
             },
-            "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Interfaces\\DocsMarshal.Interfaces.csproj": {
-              "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Interfaces\\DocsMarshal.Interfaces.csproj"
+            "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Interfaces\\DOCSMarshal.Interfaces.csproj": {
+              "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Interfaces\\DOCSMarshal.Interfaces.csproj"
             }
           }
         }
