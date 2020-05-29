@@ -97,10 +97,14 @@ namespace DocsMarshal.Entities
             ValueType = Enums.EFieldType.DateTime;
             ExternalID = externalId;
             if (value.HasValue)
-                Value = value.Value.ToString();
+                Value = value.Value.ToString("yyyy-MM-dd HH:mm:ss");
             else
                 Value = string.Empty;
             ValueFormat = valueFormat;
+        }
+
+        public FieldValueDateTime(string externalId, DateTime? value) : this(externalId, value, null)
+        {
         }
     }
 

@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using DocsMarshal.Entities;
 using SQLite;
+using System.Reflection;
+using System.Linq;
 
 namespace DocsMarshal.MVVM.Models
 {
@@ -53,6 +55,9 @@ namespace DocsMarshal.MVVM.Models
         public string LanguageCode { get; set; }
         public string ProtocolCode { get; set; }
 
+        // the profile only exists in the local DB and has yet to be saved by an OfflineManager or some other mean
+        public bool _IsLocal { get; set; }
+
         public void LoadStandardFieldFromProfileSearchResult(DocsMarshal.Entities.Interfaces.IProfile profile)
         {
             this.Objectid = profile.ObjectId;
@@ -80,9 +85,7 @@ namespace DocsMarshal.MVVM.Models
             InsertDt = risultato.GetDateTimeValueFromProfileByExternalId(i, "InsertDt").Value;
             DomainExternalId = risultato.GetStringValueFromProfileByExternalId(i, "Domain_ExternalId");
             ObjectStateExternalId = risultato.GetStringValueFromProfileByExternalId(i, "ObjectState_ExternalId");
-     
         }
-
 
         internal void AddStdFieldToIProfileFor(DocsMarshal.Entities.Interfaces.IProfileFor profileFor, bool raiseWorkflowEvents)
         {
@@ -107,6 +110,17 @@ namespace DocsMarshal.MVVM.Models
             ritorno.ObjectId = Objectid;
             AddStdFieldToIProfileFor(ritorno, raiseWorkflowEvents);
             return ritorno;
+        }
+
+        public static T Clone<T>(T source) where T : BaseModelEntity, new()
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+            var obj = new T();
+            foreach (var prop in typeof(T).GetRuntimeProperties())
+                if (prop.CanRead && prop.CanWrite)
+                    prop.SetValue(obj, prop.GetValue(source));
+            return obj;
         }
     }
 }
