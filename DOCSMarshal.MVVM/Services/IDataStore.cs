@@ -11,5 +11,6 @@ namespace DocsMarshal.MVVM.Services
         Task<T> Insert(T model, bool raiseWorkflowEvents);
         Task<T> Update(T model, bool raiseWorkflowEvents);
         Task Delete(T model, bool raiseWorkflowEvents);
+        Task Clear();
     }
 }

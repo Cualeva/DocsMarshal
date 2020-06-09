@@ -66,12 +66,12 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\DOCSMarshal.Entities.csproj",
-      "projectName": "DOCSMarshal.Entities",
-      "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\DOCSMarshal.Entities.csproj",
-      "projectJsonPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\project.json",
+      "projectUniqueName": "C:\\Projects\\Git\\Cualeva\\DocsMarshal\\DOCSMarshal.Entities\\DocsMarshal.Entities.csproj",
+      "projectName": "DocsMarshal.Entities",
+      "projectPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal\\DOCSMarshal.Entities\\DocsMarshal.Entities.csproj",
+      "projectJsonPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal\\DOCSMarshal.Entities\\project.json",
       "packagesPath": "C:\\Users\\pietr\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal.git\\DOCSMarshal.Entities\\obj\\",
+      "outputPath": "C:\\Projects\\Git\\Cualeva\\DocsMarshal\\DOCSMarshal.Entities\\obj\\",
       "projectStyle": "ProjectJson",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
