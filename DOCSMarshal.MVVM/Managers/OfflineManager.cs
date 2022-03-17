@@ -1,19 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DocsMarshal.Entities;
+using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DocsMarshal.MVVM.Managers
 {
     public abstract class OfflineManager
     {
+        public event EventHandler<OfflineManagerProfileEventArgs> ProfileInserted;
+        public event EventHandler<OfflineManagerProfileEventArgs> ProfileUpdated;
+        //public event EventHandler<OfflineManagerEventArgs> ProfileDeleted;
+        //public event EventHandler<OfflineManagerEventArgs> TaskVariableSetValueSet;
+        //public event EventHandler<OfflineManagerEventArgs> TaskClosed;
+
         protected abstract SQLite.SQLiteAsyncConnection GetConnection();
         protected abstract DocsMarshal.Interfaces.IManager GetOrchestrator();
         protected abstract bool IsDeviceConnectedToInternet();
 
         private bool IsRunning { get; set; }
-
         public async Task Run()
         {
             if (IsRunning)
@@ -56,6 +60,7 @@ namespace DocsMarshal.MVVM.Managers
                             }
                             catch (Exception e)
                             {
+                                System.Diagnostics.Debug.WriteLine($"Error in offline manager: {e.Message}");
                             }
                         }
                         break; // break
@@ -114,19 +119,35 @@ namespace DocsMarshal.MVVM.Managers
         private async Task ManageProfileInsert(Models.QueuedRemoteOperation operation)
         {
             var orchestrator = GetOrchestrator();
-            var profileForInsert = Newtonsoft.Json.JsonConvert.DeserializeObject<DocsMarshal.Entities.ProfileForInsert>(operation.SerializedPayload);
+            var profileForInsert = Newtonsoft.Json.JsonConvert.DeserializeObject<ProfileForInsert>(operation.SerializedPayload);
             var inserted = await orchestrator.Profile.Archive.Insert(profileForInsert);
             if (inserted.HasError)
                 throw new Exception(inserted.Error);
+            try
+            {
+                OnProfileInserted(new OfflineManagerProfileEventArgs { Profile = inserted?.Profile });
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error raising event for profile insert: {e.Message}");
+            }
         }
 
         private async Task ManageProfileUpdate(Models.QueuedRemoteOperation operation)
         {
             var orchestrator = GetOrchestrator();
-            var profileForUpdate = Newtonsoft.Json.JsonConvert.DeserializeObject<DocsMarshal.Entities.ProfileForUpdate>(operation.SerializedPayload);
+            var profileForUpdate = Newtonsoft.Json.JsonConvert.DeserializeObject<ProfileForUpdate>(operation.SerializedPayload);
             var updated = await orchestrator.Profile.Archive.Update(profileForUpdate);
             if (updated.HasError)
                 throw new Exception(updated.Error);
+            try
+            {
+                OnProfileUpdated(new OfflineManagerProfileEventArgs { Profile = updated?.Profile });
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error raising event for profile update: {e.Message}");
+            }
         }
 
         private async Task ManageProfileDelete(Models.QueuedRemoteOperation operation)
@@ -142,6 +163,25 @@ namespace DocsMarshal.MVVM.Managers
         private async Task ManageTaskClose(Models.QueuedRemoteOperation operation)
         {
             throw new NotImplementedException();
+        }
+
+        protected virtual void OnProfileInserted(OfflineManagerProfileEventArgs e)
+        {
+            ProfileInserted?.Invoke(this, e);
+        }
+
+        protected virtual void OnProfileUpdated(OfflineManagerProfileEventArgs e)
+        {
+            ProfileUpdated?.Invoke(this, e);
+        }
+
+        public class OfflineManagerEventArgs : EventArgs
+        {
+        }
+
+        public class OfflineManagerProfileEventArgs : OfflineManagerEventArgs
+        {
+            public Profile Profile { get; set; }
         }
     }
 }
