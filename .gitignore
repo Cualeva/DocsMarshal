@@ -13,3 +13,11 @@
 /DOCSMarshal.MVVM/obj
 /DOCSMarshal.Orchestrator/bin
 /DOCSMarshal.Orchestrator/obj
+/DocsMarshal.Connectors.Orchestrator/bin
+/DocsMarshal.Connectors.Orchestrator/obj
+/DocsMarshal.Connectors.MVVM/bin
+/DocsMarshal.Connectors.MVVM/obj
+/DocsMarshal.Connectors.Interfaces/bin
+/DocsMarshal.Connectors.Interfaces/obj
+/DocsMarshal.Connectors.Entities/bin
+/DocsMarshal.Connectors.Entities/obj

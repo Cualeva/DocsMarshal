@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D15BA81D-760F-4581-9BC5-B442C9D098AB}</ProjectGuid>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <UseMSBuildEngine>true</UseMSBuildEngine>
+    <OutputType>Library</OutputType>
+    <RootNamespace>DocsMarshal.Connectors.Orchestrator</RootNamespace>
+    <AssemblyName>DocsMarshal.Connectors.Orchestrator</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Manager.cs" />
+    <Compile Include="Managers\SourceManager.cs" />
+    <Compile Include="Managers\WorkflowEventsManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Managers\ProfileManager.cs" />
+    <Compile Include="Managers\ProfileSearchManager.cs" />
+    <Compile Include="Managers\ProfileQueryManager.cs" />
+    <Compile Include="Managers\ProfileDocumentsManager.cs" />
+    <Compile Include="Managers\ProfileArchiveManager.cs" />
+    <Compile Include="Managers\PortalManager.cs" />
+    <Compile Include="Managers\UrlsManager.cs" />
+    <Compile Include="Managers\WorkflowManager.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DocsMarshal.Connectors.Entities\DocsMarshal.Connectors.Entities.csproj">
+      <Project>{5D5E0ED5-C2EF-470F-8F4D-DBFB747BB543}</Project>
+      <Name>DocsMarshal.Connectors.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DocsMarshal.Connectors.Interfaces\DocsMarshal.Connectors.Interfaces.csproj">
+      <Project>{E703B6F8-A538-40A4-8242-92C150537664}</Project>
+      <Name>DocsMarshal.Connectors.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\packages\Xamarin.Forms.2.5.0.121934\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.121934\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
+</Project>
