@@ -79,6 +79,13 @@ namespace DocsMarshal.Connectors.Entities
             if (!(f is FieldValueInt)) throw new Exception(string.Format("{0} is not a field of type Int", externalId));
             return (FieldValueInt)f;
         }
+        public FieldValueByteArray GetFieldByteArray_By_ExternalId(string externalId)
+        {
+            var f = GetField_By_ExternalId(externalId);
+            if (f == null) return null;
+            if (!(f is FieldValueByteArray)) throw new Exception(string.Format("{0} is not a field of type ByteArray", externalId));
+            return (FieldValueByteArray)f;
+        }
 
         public FieldValueLang GetFieldMultilanguage_ByExternalId(string externalId, string lang)
         {

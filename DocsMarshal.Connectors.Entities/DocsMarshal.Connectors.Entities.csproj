@@ -33,6 +33,7 @@
     <Compile Include="Interfaces\IProfile.cs" />
     <Compile Include="Outcome.cs" />
     <Compile Include="Profile.cs" />
+    <Compile Include="SetProfileDocumentRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProfileSearchResult.cs" />
     <Compile Include="ProfileDocument.cs" />

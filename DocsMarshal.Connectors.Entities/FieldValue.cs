@@ -118,8 +118,21 @@ namespace DocsMarshal.Connectors.Entities
                 Value = string.Empty;
             else
                 Value = System.Convert.ToBase64String(value);
-            
+
+            FileValue = new FileValue
+            {
+                Content = value,
+                FileName = "",
+            };
         }
+        public FieldValueByteArray(string externalId, Entities.FileValue fileValue)
+        {
+            ValueType = Enums.EFieldType.ByteArray;
+            ExternalID = externalId;
+            FileValue = fileValue;
+        }
+
+        public Entities.FileValue FileValue { get; set; }
     }
 
     public class FieldValueBoolean : FieldValue

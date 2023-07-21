@@ -30,6 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Manager.cs" />
+    <Compile Include="Managers\Common.cs" />
     <Compile Include="Managers\SourceManager.cs" />
     <Compile Include="Managers\WorkflowEventsManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

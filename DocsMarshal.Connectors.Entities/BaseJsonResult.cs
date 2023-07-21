@@ -17,4 +17,8 @@ namespace DocsMarshal.Connectors.Entities
     {
         public T Data { get; set; }
     }
+    public class DMBaseJsonResult<T>
+    {
+        public T result { get; set; }
+    }
 }

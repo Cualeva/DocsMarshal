@@ -88,10 +88,12 @@ namespace DocsMarshal.Connectors.Orchestrator
             return true;
         }
 
-        internal async Task<T> PostAsync<T>(string endpoint, object data, bool localTime = true)
+        internal async Task<T> PostAsync<T>(string endpoint, object data, bool localTime = true, TimeSpan? timeout = null)
         {
             using (var client = new HttpClient())
             {
+                if (timeout.HasValue)
+                    client.Timeout = timeout.Value;
                 try
                 {
                     string url = string.Format("{0}{1}", DocsMarshalUrl, endpoint);
@@ -111,9 +113,9 @@ namespace DocsMarshal.Connectors.Orchestrator
             }
         }
 
-        public T Post<T>(string endpoint, object data, bool localTime)
+        public T Post<T>(string endpoint, object data, bool localTime, TimeSpan? timeout = null)
         {
-            return From_Async_To_Sync(() => PostAsync<T>(endpoint, data, localTime));
+            return From_Async_To_Sync(() => PostAsync<T>(endpoint, data, localTime, timeout));
         }
 
         internal async Task<T> PostAsync<T>(string endpoint, object data, T instance)

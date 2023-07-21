@@ -22,6 +22,7 @@ namespace DocsMarshal.Connectors.Entities.Interfaces
         FieldValueDateTime GetFieldDateTime_By_ExternalId(string externalId);
         FieldValueDateTime GetFieldDate_By_ExternalId(string externalId);
         FieldValueLang GetFieldMultilanguage_ByExternalId(string externalId, string lang);
+        FieldValueByteArray GetFieldByteArray_By_ExternalId(string externalId);
 
     }
 }

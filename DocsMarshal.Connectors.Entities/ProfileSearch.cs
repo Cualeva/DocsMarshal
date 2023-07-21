@@ -18,9 +18,11 @@ namespace DocsMarshal.Connectors.Entities
         public string fieldsToSelect { get; set; }
         public int? top { get; set; }
         public List<SearchParameter> parameters { get; set; }
+        public List<OrderByParameter> orderby { get; set; }
         public ProfileSearch()
         {
             parameters = new List<SearchParameter>();
+            orderby = new List<OrderByParameter>();
         }
 
     }

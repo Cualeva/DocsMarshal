@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocsMarshal.Connectors.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace DocsMarshal.Connectors.Interfaces.Managers.Profile
@@ -11,5 +12,7 @@ namespace DocsMarshal.Connectors.Interfaces.Managers.Profile
         Task<DocsMarshal.Connectors.Entities.FileValue> GetDocumentByExternalFieldId(Guid objectId, string externalId);
         Task<Entities.ProfileDocumentResponse> GetProfileDocumentByFieldExternalIdAsync(Guid objectId, string fieldExternalId);
         Entities.ProfileDocumentResponse GetProfileDocumentByFieldExternalId(Guid objectId, string fieldExternalId);
+        Task<BaseReturnEntity> SetProfileDocumentAsync(SetProfileDocumentRequest document);
+        BaseReturnEntity SetProfileDocument(SetProfileDocumentRequest document);
     }
 }

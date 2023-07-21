@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace DocsMarshal.Connectors.Orchestrator.Managers
 {
-    public class ProfileDocumentManager: DocsMarshal.Connectors.Interfaces.Managers.Profile.IProfileDocumentManager
+    public class ProfileDocumentManager : DocsMarshal.Connectors.Interfaces.Managers.Profile.IProfileDocumentManager
     {
         private Manager Orchestrator = null;
 
@@ -23,16 +26,41 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
             if (Orchestrator != null) Orchestrator = null;
         }
 
+        public BaseReturnEntity SetProfileDocument(SetProfileDocumentRequest document)
+        {
+            return Manager.From_Async_To_Sync(() => SetProfileDocumentAsync(document));
+        }
+        public async Task<BaseReturnEntity> SetProfileDocumentAsync(SetProfileDocumentRequest document)
+        {
+            try
+            {
+                if (document == null)
+                    throw new ArgumentNullException(nameof(document));
+                if (document.ObjectId == null)
+                    throw new ArgumentNullException(nameof(document.ObjectId));
+                if (String.IsNullOrWhiteSpace(document.FieldExternalId))
+                    throw new ArgumentNullException(nameof(document.FieldExternalId));
+                var url = "/DMDocuments/SetProfileDocument";
+                if (!document.SessionId.HasValue)
+                    document.SessionId = Guid.Parse(Orchestrator.SessionId);
+                return await Orchestrator.PostAsync<BaseReturnEntity>(url, document, false, TimeSpan.FromMinutes(60));
+            }
+            catch (Exception ex)
+            {
+                return new BaseReturnEntity { Error = ex.Message, HasError = true };
+            }
+        }
+
         public ProfileDocumentResponse GetDefaultDocument(Guid objectId)
         {
             return GetDefaultDocumentAsync(objectId).Result;
         }
 
-        public async Task<ProfileDocumentResponse> GetDefaultDocumentAsync (Guid objectId)
+        public async Task<ProfileDocumentResponse> GetDefaultDocumentAsync(Guid objectId)
         {
             if (Guid.Empty == objectId) throw new ArgumentNullException("ObjectId cannot be empty");
             string defaultUrl = string.Format("{0}/{1}", Orchestrator.DocsMarshalUrl, "/DMDocuments/GetProfileDefaultDocumentByObjectId");
-            var serializedItem = JsonConvert.SerializeObject(new { sessionID= Orchestrator.SessionId, objectID = objectId});
+            var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, objectID = objectId });
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsync(defaultUrl, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
@@ -50,7 +78,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         public async Task<ProfileDocumentResponse> GetProfileDocumentByFieldExternalIdAsync(Guid objectId, string fieldExternalId)
         {
             if (Guid.Empty == objectId) throw new ArgumentNullException("ObjectId cannot be empty");
-            if(String.IsNullOrWhiteSpace(fieldExternalId)) throw new ArgumentNullException("fieldExternalId cannot be empty");
+            if (String.IsNullOrWhiteSpace(fieldExternalId)) throw new ArgumentNullException("fieldExternalId cannot be empty");
             string defaultUrl = string.Format("{0}/{1}", Orchestrator.DocsMarshalUrl, "/DMDocuments/GetProfileDocumentByObjectIdFieldExternalId");
             var serializedItem = JsonConvert.SerializeObject(new { sessionID = Orchestrator.SessionId, objectID = objectId, fieldExternalId = fieldExternalId });
             using (var client = new HttpClient())
@@ -71,7 +99,8 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
             {
                 SessionId = Orchestrator.SessionId,
                 ObjectId = objectId,
-                FieldExternalId = externalId });
+                FieldExternalId = externalId
+            });
             using (var client = new HttpClient())
             {
                 var response = await client.PostAsync(url, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
