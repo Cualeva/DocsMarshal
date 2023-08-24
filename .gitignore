@@ -21,3 +21,8 @@
 /DocsMarshal.Connectors.Interfaces/obj
 /DocsMarshal.Connectors.Entities/bin
 /DocsMarshal.Connectors.Entities/obj
+/DocsMarshal.Connectors.Entities/project.lock.json
+/DocsMarshal.Connectors.Interfaces/project.lock.json
+/DocsMarshal.Connectors.MVVM/project.lock.json
+/DocsMarshal.Connectors.Orchestrator/project.lock.json
+/DocsMarshal.Connectors.Orchestrator/DocsMarshal.Connectors.Orchestrator.nuget.props
