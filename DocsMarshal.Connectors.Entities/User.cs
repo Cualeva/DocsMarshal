@@ -14,6 +14,7 @@ namespace DocsMarshal.Connectors.Entities
         public DateTime CreationDateTime { get; set; }
         public string Email { get; set; }
         public bool Enabled { get; set; }
+        public string Password { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -5,6 +5,7 @@ namespace DocsMarshal.Connectors.Interfaces.Managers.Configuration
     {
         IClassTypesManager ClassTypes { get; }
         IDomainsManager Domains { get; }
+        ILanguagesManager Languages { get; }
         IObjectStatesManager ObjectStates { get; }
         IUsersManager Users { get; }
     }

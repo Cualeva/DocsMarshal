@@ -11,12 +11,14 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers.Configuration
             Orchestrator = manager;
             ClassTypes = new ClassTypesManager(Orchestrator);
             Domains = new DomainsManager(Orchestrator);
+            Languages = new LanguagesManager(Orchestrator);
             ObjectStates = new ObjectStatesManager(Orchestrator);
             Users = new UsersManager(Orchestrator);
         }
 
         public IClassTypesManager ClassTypes { get; private set; }
         public IDomainsManager Domains { get; private set; }
+        public ILanguagesManager Languages { get; private set; }
         public IObjectStatesManager ObjectStates { get; private set; }
         public IUsersManager Users { get; private set; }
 
@@ -26,6 +28,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers.Configuration
             if (Domains != null) { Domains.Dispose(); Domains = null; }
             if (ObjectStates != null) { ObjectStates.Dispose(); ObjectStates = null; }
             if (Users != null) { Users.Dispose(); Users = null; }
+            if (Languages != null) { Languages.Dispose(); Languages = null; }
             if (Orchestrator != null) Orchestrator = null;
         }
     }

@@ -30,6 +30,7 @@
     <Compile Include="Managers\Configuration\IClassTypeGrantsManager.cs" />
     <Compile Include="Managers\Configuration\IClassTypesManager.cs" />
     <Compile Include="Managers\Configuration\IConfigurationManager.cs" />
+    <Compile Include="Managers\Configuration\ILanguagesManager.cs" />
     <Compile Include="Managers\Configuration\IDomainsManager.cs" />
     <Compile Include="Managers\Configuration\IObjectStatesManager.cs" />
     <Compile Include="Managers\Configuration\IUsersManager.cs" />

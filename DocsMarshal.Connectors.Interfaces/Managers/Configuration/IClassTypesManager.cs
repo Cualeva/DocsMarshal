@@ -9,5 +9,6 @@ namespace DocsMarshal.Connectors.Interfaces.Managers.Configuration
         IClassTypeGrantsManager Grants { get; }
 
         Task<List<Entities.ClassType>> GetAll();
+        Task<Entities.ClassType> GetById(int classTypeId);
     }
 }

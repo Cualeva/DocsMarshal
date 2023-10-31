@@ -24,6 +24,13 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers.Configuration
                 throw new Exception(result.ErrorDescription);
             return result.Data;
         }
+        public async Task<Entities.ClassType> GetById(int classTypeId)
+        {
+            var result = await Orchestrator.PostAsync("/Config/Classes/GetById", new { sessionId = Orchestrator.SessionId, classId = classTypeId }, new BaseJsonModel<Entities.ClassType>());
+            if (result.Error)
+                throw new Exception(result.ErrorDescription);
+            return result.Data;
+        }
 
         public void Dispose()
         {

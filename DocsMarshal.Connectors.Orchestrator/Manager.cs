@@ -117,6 +117,26 @@ namespace DocsMarshal.Connectors.Orchestrator
             }
         }
 
+        //public async Task<T> GetAsync<T>(string url, Dictionary<string, string> parameters, TimeSpan? timeout = null)
+        //{
+        //    using (var client = new HttpClient())
+        //    {
+        //        if(timeout.HasValue)
+        //            client.Timeout = timeout.Value;
+        //        UriBuilder builder = new UriBuilder(url);
+        //        if(parameters != null)
+        //            builder.Query = String.Join("&", parameters.Select(x => $"{Uri.EscapeUriString(x.Key)}={Uri.EscapeUriString(x.Value)}"));
+        //        var response = await client.GetAsync(builder.Uri);
+        //        string rit = await response.Content.ReadAsStringAsync();
+        //        return JsonConvert.DeserializeObject<T>(rit);
+        //    }
+        //}
+
+        //public T Get<T>(string url, Dictionary<string, string> parameters, TimeSpan? timeout = null)
+        //{
+        //    return From_Async_To_Sync(() => GetAsync<T>(url, parameters, timeout));
+        //}
+
         public T Post<T>(string endpoint, object data, bool localTime, TimeSpan? timeout = null)
         {
             return From_Async_To_Sync(() => PostAsync<T>(endpoint, data, localTime, timeout));

@@ -34,6 +34,7 @@
     <Compile Include="Managers\Configuration\ClassTypeGrantsManager.cs" />
     <Compile Include="Managers\Configuration\ClassTypesManager.cs" />
     <Compile Include="Managers\Configuration\ConfigurationManager.cs" />
+    <Compile Include="Managers\Configuration\LanguagesManager.cs" />
     <Compile Include="Managers\Configuration\DomainsManager.cs" />
     <Compile Include="Managers\Configuration\ObjectStatesManager.cs" />
     <Compile Include="Managers\Configuration\UsersManager.cs" />

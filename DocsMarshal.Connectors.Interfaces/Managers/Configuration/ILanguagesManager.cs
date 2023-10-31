@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace DocsMarshal.Connectors.Interfaces.Managers.Configuration
 {
-    public interface IDomainsManager : IDisposable
+    public interface ILanguagesManager : IDisposable
     {
-        Task<List<Entities.Domain>> GetAll();
-        Task<Domain> GetById(int domainId);
+        Task<List<Language>> GetAll();
+        Task<Language> GetById(int domainId);
+        Task<Language> GetByCode(string code);
     }
 }

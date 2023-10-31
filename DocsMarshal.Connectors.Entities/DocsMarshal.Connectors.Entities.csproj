@@ -31,6 +31,7 @@
     <Compile Include="ClassType.cs" />
     <Compile Include="ClassTypeGrant.cs" />
     <Compile Include="DMException.cs" />
+    <Compile Include="Language.cs" />
     <Compile Include="Domain.cs" />
     <Compile Include="Enums\EExceptionReason.cs" />
     <Compile Include="Enums\ESearchDateCondition.cs" />

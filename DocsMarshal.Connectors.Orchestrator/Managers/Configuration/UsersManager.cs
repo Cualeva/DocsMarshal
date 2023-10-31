@@ -23,6 +23,30 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers.Configuration
             return result.Data;
         }
 
+        public async Task<User> GetById(int securityIdentityId)
+        {
+            var result = await Orchestrator.PostAsync("/Config/Users/GetById", new { sessionId = Orchestrator.SessionId, securityIdentityId }, new BaseJsonModel<User>());
+            if (result.Error)
+                throw new Exception(result.ErrorDescription);
+            return result.Data;
+        }
+
+        public async Task<List<User>> GetByName(string name)
+        {
+            var result = await Orchestrator.PostAsync("/Config/Users/GetByName", new { sessionId = Orchestrator.SessionId, name }, new BaseJsonModel<List<User>>());
+            if (result.Error)
+                throw new Exception(result.ErrorDescription);
+            return result.Data;
+        }
+
+        public async Task<User> GetByNameDomainId(string name, int domainId)
+        {
+            var result = await Orchestrator.PostAsync("/Config/Users/GetByName", new { sessionId = Orchestrator.SessionId, name, domainId }, new BaseJsonModel<User>());
+            if (result.Error)
+                throw new Exception(result.ErrorDescription);
+            return result.Data;
+        }
+
         public async Task<User> Insert(User user)
         {
             var result = await Orchestrator.PostAsync("/Config/Users/Insert", new { sessionId = Orchestrator.SessionId, element = user }, new BaseJsonModel<User>());
