@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DocsMarshal.Connectors.Interfaces.Managers.Workflow;
 using System.Net.Http.Headers;
+using DocsMarshal.Connectors.Orchestrator.Models;
 
 namespace DocsMarshal.Connectors.Orchestrator
 {
@@ -30,12 +31,14 @@ namespace DocsMarshal.Connectors.Orchestrator
             Portal = new Managers.PortalManager(this);
             Workflow = new Managers.WorkflowManager(this);
             Sources = new Managers.SourceManager(this);
+            Configuration = new Managers.Configuration.ConfigurationManager(this);
         }
 
         public IProfileManager Profile { get; private set; }
         public IPortalManager Portal { get; private set; }
         public IWorkflowManager Workflow { get; private set; }
         public Interfaces.Managers.Sources.ISource Sources { get; private set; }
+        public Interfaces.Managers.Configuration.IConfigurationManager Configuration { get; private set; }
 
         public void Dispose()
         {
@@ -43,6 +46,7 @@ namespace DocsMarshal.Connectors.Orchestrator
             if (Portal != null) { Portal.Dispose(); Portal = null; };
             if (Workflow != null) { Workflow.Dispose(); Workflow = null; };
             if (Sources != null) { Sources.Dispose(); Sources = null; };
+            if (Configuration != null) { Configuration.Dispose(); Configuration = null; };
         }
 
         public async Task<Entities.LogonToken> Logon(string username, string password, string softwareName)

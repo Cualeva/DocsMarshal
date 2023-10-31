@@ -31,8 +31,15 @@
   <ItemGroup>
     <Compile Include="Manager.cs" />
     <Compile Include="Managers\Common.cs" />
+    <Compile Include="Managers\Configuration\ClassTypeGrantsManager.cs" />
+    <Compile Include="Managers\Configuration\ClassTypesManager.cs" />
+    <Compile Include="Managers\Configuration\ConfigurationManager.cs" />
+    <Compile Include="Managers\Configuration\DomainsManager.cs" />
+    <Compile Include="Managers\Configuration\ObjectStatesManager.cs" />
+    <Compile Include="Managers\Configuration\UsersManager.cs" />
     <Compile Include="Managers\SourceManager.cs" />
     <Compile Include="Managers\WorkflowEventsManager.cs" />
+    <Compile Include="Models\BaseJsonModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\ProfileManager.cs" />
     <Compile Include="Managers\ProfileSearchManager.cs" />

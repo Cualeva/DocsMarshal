@@ -28,9 +28,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BaseJsonResult.cs" />
+    <Compile Include="ClassType.cs" />
+    <Compile Include="ClassTypeGrant.cs" />
+    <Compile Include="DMException.cs" />
+    <Compile Include="Domain.cs" />
+    <Compile Include="Enums\EExceptionReason.cs" />
     <Compile Include="Enums\ESearchDateCondition.cs" />
     <Compile Include="FileValue.cs" />
     <Compile Include="Interfaces\IProfile.cs" />
+    <Compile Include="ObjectState.cs" />
     <Compile Include="Outcome.cs" />
     <Compile Include="Profile.cs" />
     <Compile Include="SetProfileDocumentRequest.cs" />
@@ -70,6 +76,7 @@
     <Compile Include="BaseReturnEntity.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="SourceDataResult.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
