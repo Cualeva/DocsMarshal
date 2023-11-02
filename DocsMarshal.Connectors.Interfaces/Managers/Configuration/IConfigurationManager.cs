@@ -7,6 +7,7 @@ namespace DocsMarshal.Connectors.Interfaces.Managers.Configuration
         IDomainsManager Domains { get; }
         ILanguagesManager Languages { get; }
         IObjectStatesManager ObjectStates { get; }
+        IAdditionalFieldsStructureManager AdditionalFieldsStructure { get; }
         IUsersManager Users { get; }
     }
 }
