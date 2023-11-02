@@ -16,6 +16,7 @@ namespace DocsMarshal.Connectors.Entities
         public string ClassTypeExternalID { get; set; }
         public string ObjectStateExternalID { get; set; }
         public string LanguageCode { get; set; }
+        public string ExternalId { get; set; }
         public List<FieldValue> Fields { get; set; }
 
         public void Dispose()
