@@ -31,7 +31,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         }
         public ProfileForInsert GetNewInstanceForInsertByClassType(string classTypeExternalId)
         {
-            return Manager.From_Async_To_Sync(() => GetNewInstanceForInsertByClassTypeAsync(classTypeExternalId));
+            return Orchestrator.From_Async_To_Sync(() => GetNewInstanceForInsertByClassTypeAsync(classTypeExternalId));
         }
         public async Task<ProfileForInsert> GetNewInstanceForInsertByClassTypeAsync(string classTypeExternalId)
         {
@@ -49,7 +49,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         }
         public ProfileForInsert GetNewInstanceForInsertByObjectId(Guid objectId)
         {
-            return Manager.From_Async_To_Sync(() => GetNewInstanceForInsertByObjectIdAsync(objectId));
+            return Orchestrator.From_Async_To_Sync(() => GetNewInstanceForInsertByObjectIdAsync(objectId));
         }
         public async Task<ProfileForInsert> GetNewInstanceForInsertByObjectIdAsync(Guid objectId)
         {
@@ -170,7 +170,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         }
         public BaseJsonResult ChangeStatus(List<Guid> objectIds, int? objectStateId, string objectStateExternalId)
         {
-            return Manager.From_Async_To_Sync(() => ChangeStatusAsync(objectIds, objectStateId, objectStateExternalId));
+            return Orchestrator.From_Async_To_Sync(() => ChangeStatusAsync(objectIds, objectStateId, objectStateExternalId));
         }
         public async Task<BaseJsonResult> ChangeStatusAsync(List<Guid> objectIds, int? objectStateId, string objectStateExternalId)
         {
@@ -193,7 +193,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
 
         public DMException CanUpdate(Guid objectId)
         {
-            return CanUpdateAsync(objectId).GetAwaiter().GetResult();
+            return Orchestrator.From_Async_To_Sync(() => CanUpdateAsync(objectId));
         }
         public async Task<DMException> CanUpdateAsync(Guid objectId)
         {
@@ -204,7 +204,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         }
         public DMException CanUpdateDocument(Guid objectId)
         {
-            return CanUpdateDocumentAsync(objectId).GetAwaiter().GetResult();
+            return Orchestrator.From_Async_To_Sync(() => CanUpdateDocumentAsync(objectId));
         }
         public async Task<DMException> CanUpdateDocumentAsync(Guid objectId)
         {
@@ -215,7 +215,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         }
         public DMException CanDelete(Guid objectId)
         {
-            return CanDeleteAsync(objectId).GetAwaiter().GetResult();
+            return Orchestrator.From_Async_To_Sync(() => CanDeleteAsync(objectId));
         }
         public async Task<DMException> CanDeleteAsync(Guid objectId)
         {
@@ -226,7 +226,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         }
         public DMException CanShare(Guid objectId)
         {
-            return CanShareAsync(objectId).GetAwaiter().GetResult();
+            return Orchestrator.From_Async_To_Sync(() => CanShareAsync(objectId));
         }
         public async Task<DMException> CanShareAsync(Guid objectId)
         {

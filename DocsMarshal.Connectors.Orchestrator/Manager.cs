@@ -153,7 +153,7 @@ namespace DocsMarshal.Connectors.Orchestrator
             TaskContinuationOptions.None,
             TaskScheduler.Default);
 
-        internal static T From_Async_To_Sync<T>(Func<Task<T>> task)
+        public T From_Async_To_Sync<T>(Func<Task<T>> task)
         {
             return _taskFactory
                 .StartNew(task)

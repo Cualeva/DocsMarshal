@@ -28,7 +28,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
 
         public BaseReturnEntity SetProfileDocument(SetProfileDocumentRequest document)
         {
-            return Manager.From_Async_To_Sync(() => SetProfileDocumentAsync(document));
+            return Orchestrator.From_Async_To_Sync(() => SetProfileDocumentAsync(document));
         }
         public async Task<BaseReturnEntity> SetProfileDocumentAsync(SetProfileDocumentRequest document)
         {

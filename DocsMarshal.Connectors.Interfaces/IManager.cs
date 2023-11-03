@@ -14,5 +14,6 @@ namespace DocsMarshal.Connectors.Interfaces
         Task<Entities.LogonToken> Logon(string username, string password, string softwareName);
         bool Logon(string staticSessionId, string softwareName);
         bool Logoff();
+        T From_Async_To_Sync<T>(Func<Task<T>> task);
     }
 }
