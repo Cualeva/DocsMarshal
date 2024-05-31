@@ -2,6 +2,7 @@
 using DocsMarshal.Connectors.Orchestrator.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DocsMarshal.Connectors.Orchestrator.Managers.Configuration
@@ -41,10 +42,10 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers.Configuration
 
         public async Task<User> GetByNameDomainId(string name, int domainId)
         {
-            var result = await Orchestrator.PostAsync("/Config/Users/GetByName", new { sessionId = Orchestrator.SessionId, name, domainId }, new BaseJsonModel<User>());
+            var result = await Orchestrator.PostAsync("/Config/Users/GetByName", new { sessionId = Orchestrator.SessionId, name, domainId }, new BaseJsonModel<List<User>>());
             if (result.Error)
                 throw new Exception(result.ErrorDescription);
-            return result.Data;
+            return result.Data?.FirstOrDefault();
         }
 
         public async Task<User> Insert(User user)

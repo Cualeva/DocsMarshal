@@ -32,7 +32,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers.Configuration
 
         public async Task<List<Entities.ObjectState>> GetByClassTypeExternalId(string classTypeExternalId)
         {
-            var result = await Orchestrator.PostAsync("/Config/ObjectStates/GetByClassTypeExternalId", new { sessionId = Orchestrator.SessionId, classTypeExternalId }, new BaseJsonModel<List<Entities.ObjectState>>());
+            var result = await Orchestrator.PostAsync("/Config/ObjectStates/GetByClassTypeExternalId", new { sessionId = Orchestrator.SessionId, classExternalId = classTypeExternalId }, new BaseJsonModel<List<Entities.ObjectState>>());
             if (result.Error)
                 throw new Exception(result.ErrorDescription);
             return result.Data;
