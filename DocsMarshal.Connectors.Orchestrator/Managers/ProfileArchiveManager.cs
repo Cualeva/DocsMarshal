@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DocsMarshal.Connectors.Entities;
 using DocsMarshal.Connectors.Interfaces.Managers.Profile;
+using DocsMarshal.Connectors.Orchestrator.Models;
 using Newtonsoft.Json;
 
 namespace DocsMarshal.Connectors.Orchestrator.Managers
@@ -30,7 +31,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         }
         public ProfileForInsert GetNewInstanceForInsertByClassType(string classTypeExternalId)
         {
-            return Manager.From_Async_To_Sync(() => GetNewInstanceForInsertByClassTypeAsync(classTypeExternalId));
+            return Orchestrator.From_Async_To_Sync(() => GetNewInstanceForInsertByClassTypeAsync(classTypeExternalId));
         }
         public async Task<ProfileForInsert> GetNewInstanceForInsertByClassTypeAsync(string classTypeExternalId)
         {
@@ -48,7 +49,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         }
         public ProfileForInsert GetNewInstanceForInsertByObjectId(Guid objectId)
         {
-            return Manager.From_Async_To_Sync(() => GetNewInstanceForInsertByObjectIdAsync(objectId));
+            return Orchestrator.From_Async_To_Sync(() => GetNewInstanceForInsertByObjectIdAsync(objectId));
         }
         public async Task<ProfileForInsert> GetNewInstanceForInsertByObjectIdAsync(Guid objectId)
         {
@@ -169,7 +170,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
         }
         public BaseJsonResult ChangeStatus(List<Guid> objectIds, int? objectStateId, string objectStateExternalId)
         {
-            return Manager.From_Async_To_Sync(() => ChangeStatusAsync(objectIds, objectStateId, objectStateExternalId));
+            return Orchestrator.From_Async_To_Sync(() => ChangeStatusAsync(objectIds, objectStateId, objectStateExternalId));
         }
         public async Task<BaseJsonResult> ChangeStatusAsync(List<Guid> objectIds, int? objectStateId, string objectStateExternalId)
         {
@@ -188,6 +189,51 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
             {
                 return new BaseJsonResult { ErrorDescription = ex.Message, Error = true };
             }
+        }
+
+        public DMException CanUpdate(Guid objectId)
+        {
+            return Orchestrator.From_Async_To_Sync(() => CanUpdateAsync(objectId));
+        }
+        public async Task<DMException> CanUpdateAsync(Guid objectId)
+        {
+            var result = await Orchestrator.PostAsync("/DMProfile/CanUpdate", new { sessionId = Orchestrator.SessionId, objectId, getException = true }, new BaseJsonModel<DMException>());
+            if (result.Error)
+                throw new Exception(result.ErrorDescription);
+            return result.Data;
+        }
+        public DMException CanUpdateDocument(Guid objectId)
+        {
+            return Orchestrator.From_Async_To_Sync(() => CanUpdateDocumentAsync(objectId));
+        }
+        public async Task<DMException> CanUpdateDocumentAsync(Guid objectId)
+        {
+            var result = await Orchestrator.PostAsync("/DMProfile/CanUpdateDocument", new { sessionId = Orchestrator.SessionId, objectId, getException = true }, new BaseJsonModel<DMException>());
+            if (result.Error)
+                throw new Exception(result.ErrorDescription);
+            return result.Data;
+        }
+        public DMException CanDelete(Guid objectId)
+        {
+            return Orchestrator.From_Async_To_Sync(() => CanDeleteAsync(objectId));
+        }
+        public async Task<DMException> CanDeleteAsync(Guid objectId)
+        {
+            var result = await Orchestrator.PostAsync("/DMProfile/CanDelete", new { sessionId = Orchestrator.SessionId, objectId, getException = true }, new BaseJsonModel<DMException>());
+            if (result.Error)
+                throw new Exception(result.ErrorDescription);
+            return result.Data;
+        }
+        public DMException CanShare(Guid objectId)
+        {
+            return Orchestrator.From_Async_To_Sync(() => CanShareAsync(objectId));
+        }
+        public async Task<DMException> CanShareAsync(Guid objectId)
+        {
+            var result = await Orchestrator.PostAsync("/DMProfile/CanShare", new { sessionId = Orchestrator.SessionId, objectId, getException = true }, new BaseJsonModel<DMException>());
+            if (result.Error)
+                throw new Exception(result.ErrorDescription);
+            return result.Data;
         }
 
         private class ProfileForInsertInternal : Connectors.Entities.ProfileForInsert

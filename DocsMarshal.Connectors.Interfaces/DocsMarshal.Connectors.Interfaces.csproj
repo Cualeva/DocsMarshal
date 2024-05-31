@@ -27,6 +27,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Managers\Configuration\IClassTypeGrantsManager.cs" />
+    <Compile Include="Managers\Configuration\IClassTypesManager.cs" />
+    <Compile Include="Managers\Configuration\IConfigurationManager.cs" />
+    <Compile Include="Managers\Configuration\IAdditionalFieldsStructureManager.cs" />
+    <Compile Include="Managers\Configuration\ILanguagesManager.cs" />
+    <Compile Include="Managers\Configuration\IDomainsManager.cs" />
+    <Compile Include="Managers\Configuration\IObjectStatesManager.cs" />
+    <Compile Include="Managers\Configuration\IUsersManager.cs" />
     <Compile Include="Managers\Sources\ISource.cs" />
     <Compile Include="Managers\Workflow\IWorkflowEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
