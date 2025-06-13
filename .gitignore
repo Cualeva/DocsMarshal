@@ -26,3 +26,7 @@
 /DocsMarshal.Connectors.MVVM/project.lock.json
 /DocsMarshal.Connectors.Orchestrator/project.lock.json
 /DocsMarshal.Connectors.Orchestrator/DocsMarshal.Connectors.Orchestrator.nuget.props
+/DocsMarshal.Connectors.Entities/.vs/DocsMarshal.Connectors.Entities.csproj.dtbcache.json
+/DocsMarshal.Connectors.Interfaces/.vs/DocsMarshal.Connectors.Interfaces.csproj.dtbcache.json
+/DocsMarshal.Connectors.MVVM/.vs/DocsMarshal.Connectors.MVVM.csproj.dtbcache.json
+/DocsMarshal.Connectors.Orchestrator/.vs/DocsMarshal.Connectors.Orchestrator.csproj.dtbcache.json
