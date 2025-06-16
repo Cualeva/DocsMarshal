@@ -250,6 +250,7 @@ namespace DocsMarshal.Connectors.Orchestrator.Managers
                 ClassTypeExternalID = pInsert.ClassTypeExternalID;
                 ObjectStateExternalID = pInsert.ObjectStateExternalID;
                 LanguageCode = pInsert.LanguageCode;
+                ExternalId = pInsert.ExternalId;
                 Fields = pInsert.Fields;
                 TempFileIds = new Dictionary<string, Guid>();
             }
